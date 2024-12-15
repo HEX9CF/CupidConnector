@@ -3,10 +3,8 @@ package conf
 import (
 	"CupidConnector/internal/utils"
 	"bufio"
-	"fmt"
 	"log"
 	"os"
-	"strings"
 )
 
 func CreateEnv() error {
@@ -20,23 +18,6 @@ func CreateEnv() error {
 	}
 
 	setDefault()
-
-	fmt.Println("请输入校园网认证信息：")
-	fmt.Print("用户名：")
-	Username, _ = reader.ReadString('\n')
-	Username = strings.TrimSpace(Username)
-	fmt.Print("密码：")
-	Password, _ = reader.ReadString('\n')
-	Password = strings.TrimSpace(Password)
-
-	AutoExit = defaultAutoExit
-	fmt.Print("认证成功后是否自动退出程序(Y/N)？")
-	autoQuit, _ := reader.ReadString('\n')
-	autoQuit = strings.TrimSpace(autoQuit)
-	autoQuit = strings.ToLower(autoQuit)
-	if autoQuit == "y" {
-		AutoExit = "TRUE"
-	}
 
 	err := saveEnv()
 	if err != nil {
