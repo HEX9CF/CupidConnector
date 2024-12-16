@@ -34,3 +34,15 @@ func (a *App) GetConf() model.Resp {
 	config := service.GetConf()
 	return model.Resp{Code: model.ResponseCodeOk, Msg: "success", Data: config}
 }
+
+func (a *App) GetInfo() model.Resp {
+	info, err := service.GetInfo()
+	if err != nil {
+		return model.Resp{Code: model.ResponseCodeError, Msg: err.Error()}
+	}
+	return model.Resp{Code: model.ResponseCodeOk, Msg: "success", Data: info}
+}
+
+func (a *App) UpdateInfo(model.Info) model.Resp {
+	return model.Resp{Code: model.ResponseCodeError, Msg: "not implemented"}
+}
