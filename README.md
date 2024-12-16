@@ -4,24 +4,29 @@
 
 一款用于自动登录汕头大学校园网的轻量级工具软件，通过发送登录请求并处理响应，实现自动化登录功能，方便汕大师生登录校园网。
 
-该工具支持自动登录、重新认证、注销账号等功能，同时支持初始化配置文件，简化用户的配置过程。不需要用户手动打开浏览器，输入账号密码，只需双击运行程序即可完成登录操作。将程序添加到开机启动项，即可实现开机自动登录校园网。不同于 Python 脚本，该工具是一个独立的可执行文件，开箱即用，无需安装 Python 环境，方便用户使用。
+该工具支持自动登录、重新认证、注销账号等功能，同时支持初始化配置文件，简化用户的配置过程。将程序添加到开机启动项，即可实现开机自动登录校园网。
 
 A lightweight tool for automatically logging into the Shantou University campus network. It automates the login process by sending login requests and handling responses, making it convenient for Shantou University students and staff to log into the campus network.
+
+## 软件版本
+
+- Cupid Connector（完整版）
+[https://github.com/HEX9CF/CupidConnector](https://github.com/HEX9CF/CupidConnector)
+- Cupid Connector Lite（轻量版）
+[https://github.com/HEX9CF/CupidConnectorLite](https://github.com/HEX9CF/CupidConnectorLite)
 
 ## 功能简介
 
 - **自动登录**：通过发送登录请求，并处理登录响应，实现自动化登录。
 - **重新认证**：用户可以在需要时重新进行登录认证。
 - **注销账号**：用户可以注销当前登录的账号，退出校园网。
-- **初始化配置**：支持初始化配置文件，简化用户的配置过程。
 
 ## 使用方法
 
 1. **运行程序**：在 Release 页面下载最新的可执行文件，双击运行程序。
-2. **初始化配置**：首次运行程序时，会自动生成配置文件。用户可以根据提示填写校园网用户名和密码。同时，程序会询问是否在认证成功后自动退出程序，用户可以根据需求选择是否开启该功能。
-3. **自动登录**：程序会自动发送认证请求，登录校园网，登录成功后会显示登录成功的提示信息。
-4. **自动退出**：如果用户开启了认证成功自动退出功能，程序会在认证成功后立即自动退出。
-5. **开机自启**：用户可以将程序添加到开机启动项，实现开机自动登录校园网。具体方法请参考下文。
+2. **自动登录**：程序会自动发送认证请求，登录校园网，登录成功后会显示登录成功的提示信息。
+3. **自动退出**：如果用户开启了认证成功自动退出功能，程序会在认证成功后立即自动退出。
+4. **开机自启**：用户可以将程序添加到开机启动项，实现开机自动登录校园网。具体方法请参考下文。
 
 ## 配置文件
 
