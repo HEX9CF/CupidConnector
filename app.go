@@ -1,9 +1,14 @@
 package main
 
 import (
+	"CupidConnector/internal/conf"
 	"CupidConnector/internal/model"
 	"CupidConnector/internal/service"
 	"context"
+	"log"
+	"os"
+
+	"github.com/go-toast/toast"
 )
 
 // App struct
@@ -20,6 +25,32 @@ func NewApp() *App {
 // so we can call the runtime methods
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
+	conf.InitEnv()
+	err := service.Login()
+	if err != nil {
+		notification := toast.Notification{
+			AppID:   "CupidConnector",
+			Title:   "校园网登录失败",
+			Message: "错误信息：" + err.Error(),
+		}
+		err := notification.Push()
+		if err != nil {
+			log.Fatalln(err)
+		}
+	} else {
+		notification := toast.Notification{
+			AppID:   "CupidConnector",
+			Title:   "校园网登录成功",
+			Message: "登录成功，用户：" + conf.Config.Username + "，您已通过上网认证！",
+		}
+		err := notification.Push()
+		if err != nil {
+			log.Fatalln(err)
+		}
+	}
+	if conf.Config.AutoExit == "TRUE" {
+		os.Exit(0)
+	}
 }
 
 func (a *App) UpdateConf(config model.Conf) model.Resp {

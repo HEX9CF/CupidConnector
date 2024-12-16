@@ -5,6 +5,7 @@ go 1.21
 toolchain go1.23.3
 
 require (
+	github.com/go-toast/toast v0.0.0-20190211030409-01e6764cf0a4
 	github.com/joho/godotenv v1.5.1
 	github.com/wailsapp/wails/v2 v2.9.2
 	golang.org/x/net v0.25.0
@@ -24,6 +25,7 @@ require (
 	github.com/leaanthony/u v1.1.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.19 // indirect
+	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d // indirect
 	github.com/pkg/browser v0.0.0-20210911075715-681adbf594b8 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect

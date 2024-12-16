@@ -2,8 +2,8 @@ package conf
 
 const (
 	defaultUrl      = "http://a.stu.edu.cn/ac_portal/login.php"
-	defaultUsername = "username"
-	defaultPasswrod = "password"
+	defaultUsername = ""
+	defaultPasswrod = ""
 	defaultAutoExit = "FALSE"
 )
 

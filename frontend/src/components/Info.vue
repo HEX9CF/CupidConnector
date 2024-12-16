@@ -27,7 +27,6 @@ import { CanvasRenderer } from 'echarts/renderers';
 echarts.use([GaugeChart, CanvasRenderer]);
 type EChartsOption = echarts.ComposeOption<GaugeSeriesOption>;
 
-
 const info = ref<model.Info>()
 const overall = ref<number>(0)
 const used = ref<number>(0)
@@ -113,7 +112,7 @@ const updateOption = async () => {
                         }
                     },
                     title: {
-                        show: false
+                        offsetCenter: [0, '60%'],
                     },
                     detail: {
                         valueAnimation: true,
@@ -124,6 +123,7 @@ const updateOption = async () => {
                     data: [
                         {
                             value: used.value,
+                            name: '已使用'
                         }
                     ]
                 }

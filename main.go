@@ -8,6 +8,7 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 )
 
+//go:embed frontend/dist
 var assets embed.FS
 
 func main() {
@@ -17,8 +18,8 @@ func main() {
 	// Create application with options
 	err := wails.Run(&options.App{
 		Title:  "CupidConnector",
-		Width:  1024,
-		Height: 768,
+		Width:  982,
+		Height: 649,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
