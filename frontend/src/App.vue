@@ -1,10 +1,10 @@
 <template>
-  <ConfigManager />
+  <Setting />
   <Info class="info-margin" />
 </template>
 
 <script setup lang="ts">
-import ConfigManager from "./components/ConfigManager.vue";
+import Setting from "./components/Setting.vue";
 import Info from "./components/Info.vue";
 </script>
 

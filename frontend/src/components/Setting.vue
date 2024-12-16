@@ -1,7 +1,7 @@
 <template>
     <main>
-        <ElButton @click="handleClick">配置信息</ElButton>
-        <el-dialog v-model="dialogFormVisible" title="配置信息" width="500">
+        <ElButton @click="handleClick">设置</ElButton>
+        <el-dialog v-model="dialogFormVisible" title="设置" width="500">
             <el-form :model="conf">
                 <el-form-item label="用户" label-width="right">
                     <el-input v-model="conf.username" placeholder="username"></el-input>

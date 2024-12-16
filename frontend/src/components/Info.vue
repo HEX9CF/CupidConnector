@@ -153,7 +153,8 @@ onMounted(async () => {
 
 <style scoped>
 .statistics-area-chart {
-    width: 270px;
-    height: 270px;
+  width: 270px;
+  height: 270px;
+  color: #fff;
 }
 </style>
