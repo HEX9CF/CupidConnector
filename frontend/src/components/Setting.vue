@@ -1,28 +1,24 @@
 <template>
-    <main>
-        <ElButton @click="handleClick">设置</ElButton>
-        <el-dialog v-model="dialogFormVisible" title="设置" width="500">
-            <el-form :model="conf">
-                <el-form-item label="用户" label-width="right">
-                    <el-input v-model="conf.username" placeholder="username"></el-input>
-                </el-form-item>
-                <el-form-item label="密码" label-width="right">
-                    <el-input v-model="conf.password" placeholder="password" type="password"></el-input>
-                </el-form-item>
-                <el-form-item label="连接后自动关闭" label-width="right">
-                    <el-switch v-model="auto_exit"></el-switch>
-                </el-form-item>
-            </el-form>
-            <template #footer>
-                <div class="dialog-footer">
-                    <el-button @click="dialogFormVisible = false">Cancel</el-button>
-                    <el-button type="primary" @click="handleConfirm">
-                        Confirm
-                    </el-button>
-                </div>
-            </template>
-        </el-dialog>
-    </main>
+      <el-button @click="handleClick">配置信息</el-button>
+      <el-dialog v-model="dialogFormVisible" title="配置信息" width="500">
+          <el-form :model="conf">
+              <el-form-item label="用户" label-width="right">
+                  <el-input v-model="conf.username" placeholder="username"></el-input>
+              </el-form-item>
+              <el-form-item label="密码" label-width="right">
+                  <el-input v-model="conf.password" placeholder="password" type="password"></el-input>
+              </el-form-item>
+              <el-form-item label="连接后自动关闭" label-width="right">
+                  <el-switch v-model="auto_exit"></el-switch>
+              </el-form-item>
+          </el-form>
+          <template #footer>
+              <div class="dialog-footer">
+                  <el-button @click="dialogFormVisible = false">取消</el-button>
+                  <el-button type="primary" @click="handleConfirm">确认</el-button>
+              </div>
+          </template>
+      </el-dialog>
 </template>
 
 <script setup lang="ts">
@@ -48,6 +44,7 @@ const handleClick = () => {
     })
     dialogFormVisible.value = true;
 };
+
 const handleConfirm = () => {
     conf.value.auto_exit = auto_exit.value ? "TRUE" : "FALSE";
     UpdateConf(conf.value).then(res => {

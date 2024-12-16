@@ -97,12 +97,12 @@ const updateOption = async () => {
                         length: 10,
                         lineStyle: {
                             width: 2,
-                            color: '#999'
+                            color: '#fff'
                         }
                     },
                     axisLabel: {
                         distance: 25,
-                        color: '#999',
+                        color: '#fff',
                         fontSize: 10
                     },
                     anchor: {
@@ -120,12 +120,13 @@ const updateOption = async () => {
                         valueAnimation: true,
                         fontSize: 20,
                         offsetCenter: [0, '85%'],
-                        formatter: '{value}' + 'MB'
+                        formatter: '{value}' + 'MB',
+                        color: '#fff'
                     },
                     data: [
                         {
                             value: used.value,
-                            name: '已使用'
+                            name: '已使用',
                         }
                     ]
                 }
@@ -155,6 +156,5 @@ onMounted(async () => {
 .statistics-area-chart {
   width: 270px;
   height: 270px;
-  color: #fff;
 }
 </style>

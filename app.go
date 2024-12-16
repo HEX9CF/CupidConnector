@@ -32,7 +32,7 @@ func (a *App) startup(ctx context.Context) {
 	err = service.Login()
 	if err != nil {
 		notification := toast.Notification{
-			AppID:   "cupid-connector",
+			AppID:   "Cupid Connector",
 			Title:   "校园网登录失败",
 			Message: "错误信息：" + err.Error(),
 		}
@@ -42,7 +42,7 @@ func (a *App) startup(ctx context.Context) {
 		}
 	} else {
 		notification := toast.Notification{
-			AppID:   "cupid-connector",
+			AppID:   "Cupid Connector",
 			Title:   "校园网登录成功",
 			Message: "登录成功，用户：" + conf.Config.Username + "，您已通过上网认证！",
 		}
@@ -79,4 +79,29 @@ func (a *App) GetInfo() model.Resp {
 
 func (a *App) UpdateInfo(model.Info) model.Resp {
 	return model.Resp{Code: model.ResponseCodeError, Msg: "not implemented"}
+}
+
+func (a *App) Login() model.Resp {
+	err := service.Login()
+	if err != nil {
+		n := toast.Notification{
+			AppID:   "Cupid Connector",
+			Title:   "校园网登录失败",
+			Message: "错误信息：" + err.Error(),
+		}
+		err := n.Push()
+		if err != nil {
+			return model.Resp{Code: model.ResponseCodeError, Msg: err.Error()}
+		}
+	}
+	n := toast.Notification{
+		AppID:   "Cupid Connector",
+		Title:   "校园网登录成功",
+		Message: "登录成功，用户：" + conf.Config.Username + "，您已通过上网认证！",
+	}
+	err = n.Push()
+	if err != nil {
+		return model.Resp{Code: model.ResponseCodeError, Msg: err.Error()}
+	}
+	return model.Resp{Code: model.ResponseCodeOk, Msg: "success"}
 }
