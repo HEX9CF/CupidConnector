@@ -1,5 +1,5 @@
 <template>
-      <el-button type="primary" @click="handleClick">修改设置</el-button>
+      <el-button type="primary" @click="handleClick" :icon="Setting">设置</el-button>
       <el-dialog v-model="dialogFormVisible" title="设置" width="500">
           <el-form :model="conf">
               <el-form-item label="用户" label-width="right">
@@ -15,7 +15,7 @@
           <template #footer>
               <div class="dialog-footer">
                   <el-button @click="dialogFormVisible = false">取消</el-button>
-                  <el-button type="primary" @click="handleConfirm">确认</el-button>
+                  <el-button type="primary" @click="handleConfirm" :loading="isLoading">确认</el-button>
               </div>
           </template>
       </el-dialog>
@@ -24,9 +24,11 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import { model } from '../../wailsjs/go/models'
-import { ElButton, ElDialog, ElForm, ElInput, ElNotification, ElSwitch } from "element-plus"
+import { ElButton, ElDialog, ElForm, ElInput, ElSwitch } from "element-plus"
 import { GetConf, UpdateConf } from '../../wailsjs/go/main/App'
+import {Setting} from "@element-plus/icons-vue";
 
+const isLoading = ref(false);
 const dialogFormVisible = ref(false)
 const auto_exit = ref<boolean>(false)
 
@@ -45,21 +47,12 @@ const handleClick = () => {
     dialogFormVisible.value = true;
 };
 
-const handleConfirm = () => {
-    conf.value.auto_exit = auto_exit.value ? "TRUE" : "FALSE";
-    UpdateConf(conf.value).then(res => {
-        if (res.code === 1)
-            ElNotification({
-                title: "更新成功",
-                type: "success"
-            });
-        else
-            ElNotification({
-                title: "更新失败",
-                type: "error",
-                message: res.msg
-            });
-    })
-    dialogFormVisible.value = false;
+const handleConfirm = async () => {
+  isLoading.value = true;
+  conf.value.auto_exit = auto_exit.value ? "TRUE" : "FALSE";
+  await UpdateConf(conf.value).then(() => {
+    isLoading.value = false;
+  });
+  dialogFormVisible.value = false;
 };
 </script>

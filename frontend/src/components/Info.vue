@@ -8,7 +8,7 @@
             <p>过期时间：{{ info?.expiration_time }}</p>
             <p>用户状态：{{ info?.account_status }}</p>
           </div>
-          <ElButton @click="refresh" style="margin-top: 10px; width: 10px;" :icon="RefreshRight" />
+          <ElButton @click="refresh" style="margin-top: 10px;" :icon="Refresh" :loading="isLoading" >刷新</ElButton>
         </ElCol>
         <ElCol :span="12" style="text-align: right">
           <div class="statistics-area-chart" ref="chartDom"></div>
@@ -19,21 +19,23 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { ElCol, ElRow, ElCard, ElNotification } from 'element-plus'
+import { ElCol, ElRow, ElCard } from 'element-plus'
 import { GetInfo } from '../../wailsjs/go/main/App'
 import { model } from '../../wailsjs/go/models'
 import * as echarts from 'echarts/core';
 import { GaugeChart, GaugeSeriesOption } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
-import { RefreshRight } from "@element-plus/icons-vue";
+import { Refresh } from "@element-plus/icons-vue";
 echarts.use([GaugeChart, CanvasRenderer]);
 type EChartsOption = echarts.ComposeOption<GaugeSeriesOption>;
 
+const isLoading = ref(false)
 const info = ref<model.Info>()
 const overall = ref<number>(0)
 const used = ref<number>(0)
 
 const getInfo = async () => {
+  isLoading.value = true
     await GetInfo().then((res) => {
         if (res.code === 1) {
             info.value = res.data
@@ -51,12 +53,8 @@ const getInfo = async () => {
         } else {
           overall.value = 0;
           used.value = 0;
-            ElNotification({
-                title: '获取信息失败',
-                message: res.msg,
-                type: 'error',
-            })
         }
+      isLoading.value = false
     })
 }
 
