@@ -1,17 +1,17 @@
 package conf
 
-import "os"
+import (
+	"CupidConnector/internal/model"
+	"os"
+)
 
 var (
-	Url      string
-	Username string
-	Password string
-	AutoExit string
+	Config model.Conf
 )
 
 func getEnv() {
-	Url = os.Getenv("STU_URL")
-	Username = os.Getenv("STU_USERNAME")
-	Password = os.Getenv("STU_PASSWORD")
-	AutoExit = os.Getenv("AUTO_EXIT")
+	Config.Url = os.Getenv("STU_URL")
+	Config.Username = os.Getenv("STU_USERNAME")
+	Config.Password = os.Getenv("STU_PASSWORD")
+	Config.AutoExit = os.Getenv("AUTO_EXIT")
 }
