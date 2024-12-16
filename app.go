@@ -25,8 +25,11 @@ func NewApp() *App {
 // so we can call the runtime methods
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
-	conf.InitEnv()
-	err := service.Login()
+	err := conf.InitEnv()
+	if err != nil {
+		return
+	}
+	err = service.Login()
 	if err != nil {
 		notification := toast.Notification{
 			AppID:   "cupid-connector",
