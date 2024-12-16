@@ -33,14 +33,12 @@ stu.env
 # dist
 dist/
 output/
+build/
 
 # tmp
 tmp/
 
-build/
-
+# frontend
 frontend/node_modules
-
 frontend/package.json.md5
-
 frontend/wailsjs
