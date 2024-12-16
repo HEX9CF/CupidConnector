@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import {ElButton} from "element-plus";
-import {Login} from "../../wailsjs/go/main/App";
+import {Logout} from "../../wailsjs/go/main/App";
 
 const handleClick = () => {
-  Login();
+  Logout();
 }
 </script>
 
 <template>
-  <el-button type="warning" @click="handleClick">重新登录</el-button>
+  <el-button type="danger" @click="handleClick">注销账号</el-button>
 </template>
 
 <style scoped>

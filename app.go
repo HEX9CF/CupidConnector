@@ -105,3 +105,28 @@ func (a *App) Login() model.Resp {
 	}
 	return model.Resp{Code: model.ResponseCodeOk, Msg: "success"}
 }
+
+func (a *App) Logout() model.Resp {
+	err := service.Login()
+	if err != nil {
+		n := toast.Notification{
+			AppID:   "Cupid Connector",
+			Title:   "校园网注销失败",
+			Message: "错误信息：" + err.Error(),
+		}
+		err := n.Push()
+		if err != nil {
+			return model.Resp{Code: model.ResponseCodeError, Msg: err.Error()}
+		}
+	}
+	n := toast.Notification{
+		AppID:   "Cupid Connector",
+		Title:   "校园网注销成功",
+		Message: "注销成功，用户：" + conf.Config.Username + "，您已退出上网认证！",
+	}
+	err = n.Push()
+	if err != nil {
+		return model.Resp{Code: model.ResponseCodeError, Msg: err.Error()}
+	}
+	return model.Resp{Code: model.ResponseCodeOk, Msg: "success"}
+}
