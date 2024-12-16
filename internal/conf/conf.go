@@ -1,10 +1,11 @@
 package conf
 
 import (
-	"cupid-connector/utils"
+	"CupidConnector/internal/utils"
 	"fmt"
-	"github.com/joho/godotenv"
 	"log"
+
+	"github.com/joho/godotenv"
 )
 
 const envPath = "stu.env"
