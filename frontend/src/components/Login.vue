@@ -21,7 +21,7 @@ const handleClick = () => {
 </script>
 
 <template>
-  <el-button @click="handleClick">重新登录</el-button>
+  <el-button type="warning" @click="handleClick">重新登录</el-button>
 </template>
 
 <style scoped>

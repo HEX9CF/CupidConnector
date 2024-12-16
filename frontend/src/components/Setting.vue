@@ -1,6 +1,6 @@
 <template>
-      <el-button @click="handleClick">配置信息</el-button>
-      <el-dialog v-model="dialogFormVisible" title="配置信息" width="500">
+      <el-button type="primary" @click="handleClick">修改设置</el-button>
+      <el-dialog v-model="dialogFormVisible" title="设置" width="500">
           <el-form :model="conf">
               <el-form-item label="用户" label-width="right">
                   <el-input v-model="conf.username" placeholder="username"></el-input>

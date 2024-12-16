@@ -1,20 +1,20 @@
 <template>
-    <ElRow :span="24" :gutter="20" style="width: 100%;">
-        <ElCol :span="7">
-            <ElCard shadow="always" class="info">
-                <ElButton @click="refresh" style="margin-top: 10px; width: 10px;" :icon="RefreshRight" />
-                <h3>用户信息</h3>
-                <p>用户名：{{ info?.user_name }}</p>
-                <p>过期时间：{{ info?.expiration_time }}</p>
-                <p>用户状态：{{ info?.account_status }}</p>
-            </ElCard>
+  <el-card>
+    <ElRow :gutter="20" style="width: 100%;">
+        <ElCol :span="12">
+          <div>
+            <h3>用户信息</h3>
+            <p>用户名：{{ info?.user_name }}</p>
+            <p>过期时间：{{ info?.expiration_time }}</p>
+            <p>用户状态：{{ info?.account_status }}</p>
+          </div>
+          <ElButton @click="refresh" style="margin-top: 10px; width: 10px;" :icon="RefreshRight" />
         </ElCol>
-        <ElCol :span="10">
-            <ElCard shadow="always" style="width: 300px; height: 300px;">
-                <div class="statistics-area-chart" ref="chartDom"></div>
-            </ElCard>
+        <ElCol :span="12" style="text-align: right">
+          <div class="statistics-area-chart" ref="chartDom"></div>
         </ElCol>
     </ElRow>
+  </el-card>
 </template>
 
 <script setup lang="ts">
@@ -33,11 +33,9 @@ const info = ref<model.Info>()
 const overall = ref<number>(0)
 const used = ref<number>(0)
 
-
 const getInfo = async () => {
     await GetInfo().then((res) => {
         if (res.code === 1) {
-
             info.value = res.data
             const overall_unit = res.data.overall.replace(/\d*\.?\d*/g, '');
             const used_unit = res.data.used.replace(/\d*\.?\d*/g, '');
@@ -51,6 +49,8 @@ const getInfo = async () => {
                 used.value = used.value * 1024
             }
         } else {
+          overall.value = 0;
+          used.value = 0;
             ElNotification({
                 title: '获取信息失败',
                 message: res.msg,
@@ -63,7 +63,6 @@ const getInfo = async () => {
 const chartDom = ref<HTMLElement | null>(null);
 const myChart = ref<echarts.ECharts | null>(null);
 var option: EChartsOption;
-
 
 const updateOption = async () => {
     if (myChart.value) {
@@ -141,12 +140,12 @@ const refresh = async () => {
     if (chartDom.value) {
         // 初始化 ECharts 实例
         myChart.value = echarts.init(chartDom.value);
-        updateOption();
+        await updateOption();
     }
 }
 
 onMounted(async () => {
-    refresh()
+    await refresh();
 })
 
 
