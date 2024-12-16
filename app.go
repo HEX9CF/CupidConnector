@@ -48,7 +48,7 @@ func (a *App) startup(ctx context.Context) {
 			log.Fatalln(err)
 		}
 	}
-	if conf.Config.AutoExit == "TRUE" {
+	if err == nil && conf.Config.AutoExit == "TRUE" {
 		os.Exit(0)
 	}
 }

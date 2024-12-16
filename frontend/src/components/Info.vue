@@ -2,6 +2,7 @@
     <ElRow :span="24" :gutter="20" style="width: 100%;">
         <ElCol :span="7">
             <ElCard shadow="always" class="info">
+                <ElButton @click="refresh" style="margin-top: 10px; width: 10px;" :icon="RefreshRight" />
                 <h3>用户信息</h3>
                 <p>用户名：{{ info?.user_name }}</p>
                 <p>过期时间：{{ info?.expiration_time }}</p>
@@ -24,6 +25,7 @@ import { model } from '../../wailsjs/go/models'
 import * as echarts from 'echarts/core';
 import { GaugeChart, GaugeSeriesOption } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
+import { RefreshRight } from "@element-plus/icons-vue";
 echarts.use([GaugeChart, CanvasRenderer]);
 type EChartsOption = echarts.ComposeOption<GaugeSeriesOption>;
 
@@ -132,13 +134,18 @@ const updateOption = async () => {
         option && myChart.value.setOption(option)
     }
 }
-onMounted(async () => {
+
+const refresh = async () => {
     await getInfo()
     if (chartDom.value) {
         // 初始化 ECharts 实例
         myChart.value = echarts.init(chartDom.value);
         updateOption();
     }
+}
+
+onMounted(async () => {
+    refresh()
 })
 
 
