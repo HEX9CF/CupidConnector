@@ -1,7 +1,7 @@
 package conf
 
 import (
-	"CupidConnector/internal/model"
+	"cupid-connector/internal/model"
 )
 
 func Update(c model.Conf) error {

@@ -17,7 +17,7 @@ func main() {
 
 	// Create application with options
 	err := wails.Run(&options.App{
-		Title:  "CupidConnector",
+		Title:  "cupid-connector",
 		Width:  982,
 		Height: 649,
 		AssetServer: &assetserver.Options{

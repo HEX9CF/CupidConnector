@@ -1,4 +1,4 @@
-module CupidConnector
+module cupid-connector
 
 go 1.21
 

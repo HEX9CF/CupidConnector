@@ -1,7 +1,7 @@
 package network
 
 import (
-	"CupidConnector/internal/model"
+	"cupid-connector/internal/model"
 	"encoding/json"
 	"log"
 	"strings"

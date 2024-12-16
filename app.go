@@ -1,10 +1,10 @@
 package main
 
 import (
-	"CupidConnector/internal/conf"
-	"CupidConnector/internal/model"
-	"CupidConnector/internal/service"
 	"context"
+	"cupid-connector/internal/conf"
+	"cupid-connector/internal/model"
+	"cupid-connector/internal/service"
 	"log"
 	"os"
 
@@ -29,7 +29,7 @@ func (a *App) startup(ctx context.Context) {
 	err := service.Login()
 	if err != nil {
 		notification := toast.Notification{
-			AppID:   "CupidConnector",
+			AppID:   "cupid-connector",
 			Title:   "校园网登录失败",
 			Message: "错误信息：" + err.Error(),
 		}
@@ -39,7 +39,7 @@ func (a *App) startup(ctx context.Context) {
 		}
 	} else {
 		notification := toast.Notification{
-			AppID:   "CupidConnector",
+			AppID:   "cupid-connector",
 			Title:   "校园网登录成功",
 			Message: "登录成功，用户：" + conf.Config.Username + "，您已通过上网认证！",
 		}

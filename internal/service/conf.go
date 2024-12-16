@@ -1,8 +1,8 @@
 package service
 
 import (
-	"CupidConnector/internal/conf"
-	"CupidConnector/internal/model"
+	"cupid-connector/internal/conf"
+	"cupid-connector/internal/model"
 )
 
 func UpdateConf(c model.Conf) error {

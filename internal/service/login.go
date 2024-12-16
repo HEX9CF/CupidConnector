@@ -1,8 +1,8 @@
 package service
 
 import (
-	"CupidConnector/internal/api"
-	"CupidConnector/internal/conf"
+	"cupid-connector/internal/api"
+	"cupid-connector/internal/conf"
 )
 
 func Login() error {

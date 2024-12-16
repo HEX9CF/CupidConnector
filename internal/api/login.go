@@ -1,8 +1,8 @@
 package api
 
 import (
-	"CupidConnector/internal/network"
-	"CupidConnector/internal/utils"
+	"cupid-connector/internal/network"
+	"cupid-connector/internal/utils"
 	"errors"
 	"fmt"
 	"log"

@@ -1,8 +1,8 @@
 package conf
 
 import (
-	"CupidConnector/internal/utils"
 	"bufio"
+	"cupid-connector/internal/utils"
 	"log"
 	"os"
 )

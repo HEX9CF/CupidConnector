@@ -1,10 +1,10 @@
 package api
 
 import (
-	"CupidConnector/internal/model"
-	"CupidConnector/internal/network"
 	"bufio"
 	"bytes"
+	"cupid-connector/internal/model"
+	"cupid-connector/internal/network"
 	"strings"
 
 	"golang.org/x/net/html"

@@ -1,8 +1,8 @@
 package service
 
 import (
-	"CupidConnector/internal/api"
-	"CupidConnector/internal/model"
+	"cupid-connector/internal/api"
+	"cupid-connector/internal/model"
 )
 
 func GetInfo() (model.Info, error) {

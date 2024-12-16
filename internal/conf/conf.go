@@ -1,7 +1,7 @@
 package conf
 
 import (
-	"CupidConnector/internal/utils"
+	"cupid-connector/internal/utils"
 	"fmt"
 	"log"
 
