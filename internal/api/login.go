@@ -2,9 +2,9 @@ package api
 
 import (
 	"cupid-connector/internal/network"
+	"cupid-connector/internal/parser"
 	"cupid-connector/internal/utils"
 	"errors"
-	"fmt"
 	"log"
 )
 
@@ -17,12 +17,12 @@ func Login(url string, username string, password string, rememberPwd string) err
 		return err
 	}
 
-	resp, err := network.ResolveResponse(bodyStr)
+	resp, err := parser.ParseLoginResp(bodyStr)
 	if err != nil {
 		return err
 	}
 
-	fmt.Println(utils.PrettyStruct(resp))
+	log.Println(utils.PrettyStruct(resp))
 
 	if resp.Success != true {
 		return errors.New("登录失败：" + resp.Msg)

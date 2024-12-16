@@ -2,7 +2,6 @@ package conf
 
 import (
 	"cupid-connector/internal/utils"
-	"fmt"
 	"log"
 
 	"github.com/joho/godotenv"
@@ -19,7 +18,7 @@ func InitEnv() error {
 
 	if !v {
 		log.Println("配置文件不存在！")
-		fmt.Println("首次运行程序将创建配置文件")
+		log.Println("首次运行程序将创建配置文件")
 		err := CreateEnv()
 		if err != nil {
 			return err

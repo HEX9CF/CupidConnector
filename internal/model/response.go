@@ -21,15 +21,6 @@ func (c ResponseCode) String() string {
 	}
 }
 
-type Response struct {
-	Success  bool   `json:"success,omitempty"`
-	Msg      string `json:"msg,omitempty"`
-	Action   string `json:"action,omitempty"`
-	Pop      int    `json:"pop,omitempty"`
-	UserName string `json:"userName,omitempty"`
-	Location string `json:"location,omitempty"`
-}
-
 type Resp struct {
 	Code ResponseCode `json:"code"`
 	Msg  string       `json:"msg"`

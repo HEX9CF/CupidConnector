@@ -1,3 +1,6 @@
+/*
+// @author Howard Zheng <hex9cf@aliyun.com>
+*/
 package network
 
 import (
