@@ -33,7 +33,7 @@ stu.env
 # dist
 dist/
 output/
-build/
+build/bin
 
 # tmp
 tmp/
