@@ -34,13 +34,16 @@ A lightweight tool for automatically logging into the Shantou University campus 
 
 ```env
 # 校园网认证接口
-STU_URL=http://a.stu.edu.cn/ac_portal/login.php
+BASE_URL=http://a.stu.edu.cn
 
 # 校园网用户名
 STU_USERNAME=username
 
 # 校园网密码
 STU_PASSWORD=password
+
+# 启动程序后自动登录
+AUTO_LOGIN=TRUE
 
 # 认证成功后自动退出程序
 AUTO_EXIT=FALSE
