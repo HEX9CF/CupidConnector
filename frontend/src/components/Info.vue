@@ -1,5 +1,5 @@
 <template>
-    <el-empty v-if="isNoData" style="max-height: 330px">
+    <el-empty v-if="isNoData" style="max-height: 320px">
       <ElButton @click="refresh" style="margin-top: 10px;" :icon="Refresh" :loading="isLoading" >刷新</ElButton>
     </el-empty>
     <div v-if="!isNoData">
@@ -204,8 +204,8 @@ onMounted(async () => {
 
 <style scoped>
 .statistics-area-chart {
-  width: 250px;
-  height: 250px;
+  width: 240px;
+  height: 240px;
   text-align: center;
 }
 

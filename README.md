@@ -2,9 +2,7 @@
 
 ## 项目简介
 
-一款用于自动登录汕头大学校园网的轻量级工具软件，通过发送登录请求并处理响应，实现自动化登录功能，方便汕大师生登录校园网。
-
-该工具支持自动登录、重新认证、注销账号等功能，同时支持初始化配置文件，简化用户的配置过程。将程序添加到开机启动项，即可实现开机自动登录校园网。
+一款用于自动登录汕头大学校园网的轻量级工具软件，通过发送登录请求并处理响应，实现自动化登录功能，方便汕大师生登录校园网。同时支持流量监控、流量告警、自动注销等功能。将程序添加到开机启动项，即可实现开机自动登录校园网。
 
 A lightweight tool for automatically logging into the Shantou University campus network. It automates the login process by sending login requests and handling responses, making it convenient for Shantou University students and staff to log into the campus network.
 
@@ -27,6 +25,9 @@ A lightweight tool for automatically logging into the Shantou University campus 
 - **自动登录**：通过发送登录请求，并处理登录响应，实现自动化登录。
 - **重新认证**：用户可以在需要时重新进行登录认证。
 - **注销账号**：用户可以注销当前登录的账号，退出校园网。
+- **流量监控**：用户可以开启流量监控功能，设置监控间隔时间，监控网络流量使用情况。
+- **流量告警**：用户可以设置流量告警阈值，当网络流量超过阈值时，会弹出告警提示。
+- **自动注销**：用户可以设置自动注销阈值，当网络流量超过阈值时，自动注销账号。
 
 ## 使用方法
 
@@ -45,15 +46,22 @@ BASE_URL=https://a.stu.edu.cn
 
 # 校园网用户名
 STU_USERNAME=username
-
 # 校园网密码
 STU_PASSWORD=password
 
 # 启动程序后自动登录
 AUTO_LOGIN=TRUE
-
 # 认证成功后自动退出程序
 AUTO_EXIT=FALSE
+
+# 自动监控网络流量
+MONITOR_FLUX=TRUE
+# 监控间隔时间（秒）
+MONITOR_INTERVAL=5
+# 监控告警阈值（M）
+MONITOR_ALERT_THRESHOLD=1024
+# 自动注销阈值（M）
+MONITOR_LOGOUT_THRESHOLD=512
 ```
 
 ## 开机自启
