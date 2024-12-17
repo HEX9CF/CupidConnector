@@ -1,6 +1,6 @@
 <template>
     <el-empty v-if="isNoData" style="max-height: 320px">
-      <ElButton @click="refresh" style="margin-top: 10px;" :icon="Refresh" :loading="isLoading" >刷新</ElButton>
+      <ElButton @click="handleClick" style="margin-top: 10px;" :icon="Refresh" :loading="isLoading" >刷新</ElButton>
     </el-empty>
     <div v-if="!isNoData">
       <el-row>
@@ -27,7 +27,7 @@
               </div>
             </template>
           </el-statistic>
-          <ElButton @click="refresh" style="margin-top: 10px;" :icon="Refresh" :loading="isLoading" size="small">刷新</ElButton>
+          <ElButton @click="handleClick" style="margin-top: 10px;" :icon="Refresh" :loading="isLoading" size="small">刷新</ElButton>
         </el-col>
         <el-col :span="8">
           <el-statistic :value="info?.account_status">
@@ -51,7 +51,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { ElCol, ElRow } from 'element-plus'
-import { GetInfo } from '../../wailsjs/go/main/App'
+import { GetInfo, RefreshInfo } from '../../wailsjs/go/main/App'
 import { model } from '../../wailsjs/go/models'
 import * as echarts from 'echarts/core';
 import { GaugeChart, GaugeSeriesOption } from 'echarts/charts';
@@ -97,7 +97,7 @@ const getInfo = async () => {
 
 const chartDom = ref<HTMLElement | null>(null);
 const myChart = ref<echarts.ECharts | null>(null);
-var option: EChartsOption;
+let option: EChartsOption;
 
 const updateOption = async () => {
     if (myChart.value) {
@@ -170,23 +170,28 @@ const updateOption = async () => {
     }
 }
 
-const refresh = async () => {
-    await getInfo()
-    if (chartDom.value) {
-        // 初始化 ECharts 实例
-        myChart.value = echarts.init(chartDom.value);
-        await updateOption();
-    }
+const handleClick = async () => {
+  isLoading.value = true
+  await RefreshInfo()
+}
+
+const updateInfo = async () => {
+  isLoading.value = true
+  await getInfo()
+  if (chartDom.value) {
+    // 初始化 ECharts 实例
+    myChart.value = echarts.init(chartDom.value);
+    await updateOption();
+  }
 }
 
 onMounted(async () => {
-    await refresh();
-    EventsOn("refreshInfo", async () => {
-        await refresh();
-    })
+  await RefreshInfo()
+  EventsOn("updateInfo", async () => {
+    isLoading.value = true
+    await updateInfo();
+  })
 })
-
-
 </script>
 
 <style scoped>

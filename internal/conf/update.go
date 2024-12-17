@@ -1,15 +1,16 @@
 package conf
 
 import (
+	"cupid-connector/internal/data"
 	"cupid-connector/internal/model"
 )
 
 func UpdateBasic(bc model.BasicConf) error {
-	Config.Basic = bc
+	data.Config.Basic = bc
 	return saveEnv()
 }
 
 func UpdateMonitor(mc model.MonitorConf) error {
-	Config.Monitor = mc
+	data.Config.Monitor = mc
 	return saveEnv()
 }

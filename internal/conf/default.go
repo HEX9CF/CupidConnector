@@ -1,5 +1,7 @@
 package conf
 
+import "cupid-connector/internal/data"
+
 const (
 	DefaultBaseUrl         = "https://a.stu.edu.cn"
 	DefaultUsername        = ""
@@ -13,13 +15,13 @@ const (
 )
 
 func setDefault() {
-	Config.Basic.BaseUrl = DefaultBaseUrl
-	Config.Basic.Username = DefaultUsername
-	Config.Basic.Password = DefaultPassword
-	Config.Basic.AutoLogin = DefaultAutoLogin
-	Config.Basic.AutoExit = DefaultAutoExit
-	Config.Monitor.Enable = DefaultMonitorFlux
-	Config.Monitor.Interval = DefaultMonitorInterval
-	Config.Monitor.AlertThreshold = DefaultAlertThreshold
-	Config.Monitor.LogoutThreshold = DefaultLogoutThreshold
+	data.Config.Basic.BaseUrl = DefaultBaseUrl
+	data.Config.Basic.Username = DefaultUsername
+	data.Config.Basic.Password = DefaultPassword
+	data.Config.Basic.AutoLogin = DefaultAutoLogin
+	data.Config.Basic.AutoExit = DefaultAutoExit
+	data.Config.Monitor.Enable = DefaultMonitorFlux
+	data.Config.Monitor.Interval = DefaultMonitorInterval
+	data.Config.Monitor.AlertThreshold = DefaultAlertThreshold
+	data.Config.Monitor.LogoutThreshold = DefaultLogoutThreshold
 }

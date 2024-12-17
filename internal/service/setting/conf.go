@@ -1,7 +1,8 @@
-package service
+package setting
 
 import (
 	"cupid-connector/internal/conf"
+	"cupid-connector/internal/data"
 	"cupid-connector/internal/model"
 )
 
@@ -10,7 +11,7 @@ func UpdateBasicConf(c model.BasicConf) error {
 }
 
 func GetBasicConf() model.BasicConf {
-	return conf.Config.Basic
+	return data.Config.Basic
 }
 
 func UpdateMonitorConf(c model.MonitorConf) error {
@@ -18,5 +19,5 @@ func UpdateMonitorConf(c model.MonitorConf) error {
 }
 
 func GetMonitorConf() model.MonitorConf {
-	return conf.Config.Monitor
+	return data.Config.Monitor
 }
