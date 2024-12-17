@@ -6,19 +6,19 @@
               <el-switch v-model="enable"></el-switch>
             </el-form-item>
             <el-form-item label="监控间隔">
-              <el-input v-model="conf.interval" placeholder="5" :disabled="!enable"></el-input>
+              <el-slider v-model="interval" show-input size="small" max="360" :disabled="!enable" />
               <span style="font-size: 12px">
               单位：分钟，若为0则关闭流量监控
               </span>
             </el-form-item>
               <el-form-item label="告警阈值">
-                <el-input v-model="conf.alert_threshold" placeholder="30" :disabled="!enable"></el-input>
+                <el-slider v-model="alert_threshold" show-input size="small" max="100" :disabled="!enable" />
                 <span style="font-size: 12px">
                 剩余流量百分比，若为0则关闭流量告警
                 </span>
               </el-form-item>
             <el-form-item label="登出阈值">
-              <el-input v-model="conf.logout_threshold" placeholder="10" :disabled="!enable"></el-input>
+              <el-slider v-model="logout_threshold" show-input size="small" max="100" :disabled="!enable" />
               <span style="font-size: 12px">
               剩余流量百分比，若为0则关闭自动登出
               </span>
@@ -43,6 +43,9 @@ import {Aim} from "@element-plus/icons-vue";
 const isLoading = ref(false);
 const dialogFormVisible = ref(false)
 const enable = ref<boolean>(false)
+const interval = ref<number>(0)
+const alert_threshold = ref<number>(0)
+const logout_threshold = ref<number>(0)
 
 const conf = ref<model.MonitorConf>({
   enable: "FALSE",
@@ -55,6 +58,9 @@ const handleClick = () => {
     GetMonitorConf().then(res => {
         conf.value = res.data;
         enable.value = res.data.enable === "TRUE";
+        interval.value = parseInt(res.data.interval);
+        alert_threshold.value = parseInt(res.data.alert_threshold);
+        logout_threshold.value = parseInt(res.data.logout_threshold);
     })
     dialogFormVisible.value = true;
 };
@@ -62,6 +68,9 @@ const handleClick = () => {
 const handleConfirm = async () => {
   isLoading.value = true;
   conf.value.enable = enable.value ? "TRUE" : "FALSE";
+  conf.value.interval = interval.value.toString();
+  conf.value.alert_threshold = alert_threshold.value.toString();
+  conf.value.logout_threshold = logout_threshold.value.toString();
   await UpdateMonitorConf(conf.value).then(() => {
     isLoading.value = false;
   });
