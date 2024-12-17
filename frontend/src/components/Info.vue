@@ -1,18 +1,45 @@
 <template>
-    <el-empty v-if="isNoData">
+    <el-empty v-if="isNoData" style="max-height: 330px">
       <ElButton @click="refresh" style="margin-top: 10px;" :icon="Refresh" :loading="isLoading" >刷新</ElButton>
     </el-empty>
     <div v-if="!isNoData">
       <el-row>
         <el-col :span="8">
-          <el-statistic title="过期时间" :value="info?.expiration_time" />
+          <el-statistic :value="info?.expiration_time" >
+          <template #title>
+            <div style="display: inline-flex; align-items: center">
+              <el-icon style="margin-right: 4px" :size="12">
+                <Calendar />
+              </el-icon>
+              过期时间
+            </div>
+          </template>
+          </el-statistic>
         </el-col>
         <el-col :span="8">
-          <el-statistic title="用户名称" :value="info?.user_name" />
+          <el-statistic :value="info?.user_name">
+            <template #title>
+              <div style="display: inline-flex; align-items: center">
+                <el-icon style="margin-right: 4px" :size="12">
+                  <User />
+                </el-icon>
+                用户名称
+              </div>
+            </template>
+          </el-statistic>
           <ElButton @click="refresh" style="margin-top: 10px;" :icon="Refresh" :loading="isLoading" size="small">刷新</ElButton>
         </el-col>
         <el-col :span="8">
-          <el-statistic title="用户状态" :value="info?.account_status" />
+          <el-statistic :value="info?.account_status">
+            <template #title>
+              <div style="display: inline-flex; align-items: center">
+                <el-icon style="margin-right: 4px" :size="12">
+                  <CircleCheck />
+                </el-icon>
+                用户状态
+              </div>
+            </template>
+          </el-statistic>
         </el-col>
       </el-row>
       <div class="flux-chart">
@@ -23,13 +50,13 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { ElCol, ElRow, ElCard } from 'element-plus'
+import { ElCol, ElRow } from 'element-plus'
 import { GetInfo } from '../../wailsjs/go/main/App'
 import { model } from '../../wailsjs/go/models'
 import * as echarts from 'echarts/core';
 import { GaugeChart, GaugeSeriesOption } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
-import { Refresh } from "@element-plus/icons-vue";
+import { Refresh, Calendar, User, CircleCheck  } from "@element-plus/icons-vue";
 echarts.use([GaugeChart, CanvasRenderer]);
 type EChartsOption = echarts.ComposeOption<GaugeSeriesOption>;
 
@@ -177,8 +204,8 @@ onMounted(async () => {
 
 <style scoped>
 .statistics-area-chart {
-  width: 270px;
-  height: 270px;
+  width: 250px;
+  height: 250px;
   text-align: center;
 }
 
