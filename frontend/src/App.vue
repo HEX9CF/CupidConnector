@@ -26,11 +26,13 @@
       <el-main style="text-align: center;">
         <Info />
       </el-main>
-      <el-footer style="text-align: center;">
-        <div style="font-size: 12px; color: #aaa">
-          本项目采用 GPL-3.0 license 进行许可<br/>
-          仓库地址: https://github.com/HEX9CF/CupidConnector
-        </div>
+      <el-footer style="text-align: center">
+       <div class="footer">
+         <div class="about">
+           本项目采用 GPL-3.0 license 进行许可<br/>
+           仓库地址: https://github.com/HEX9CF/CupidConnector
+         </div>
+       </div>
       </el-footer>
     </el-container>
   </div>
@@ -46,5 +48,20 @@ import Logout from "./components/Logout.vue";
 <style scoped>
  .el-menu--horizontal > .el-menu-item:nth-child(1) {
    margin-right: auto;
+ }
+
+ .footer {
+   position: fixed;
+   left: 0;
+   bottom: 20px;
+   display: flex;
+   justify-content: center;
+   width: 100%;
+ }
+
+ .about {
+   font-size: 12px;
+   color: #aaa;
+   text-align: center;
  }
 </style>
