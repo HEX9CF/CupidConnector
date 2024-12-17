@@ -5,6 +5,7 @@ import (
 	"os"
 )
 
+// 格式化结构体
 func PrettyStruct(data interface{}) (string, error) {
 	val, err := json.MarshalIndent(data, "", " ")
 	if err != nil {

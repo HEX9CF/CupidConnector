@@ -1,6 +1,6 @@
 <template>
-    <el-empty v-if="isNoData" style="max-height: 330px">
-      <ElButton @click="refresh" style="margin-top: 10px;" :icon="Refresh" :loading="isLoading" >刷新</ElButton>
+    <el-empty v-if="isNoData" style="max-height: 320px">
+      <ElButton @click="handleClick" style="margin-top: 10px;" :icon="Refresh" :loading="isLoading" >刷新</ElButton>
     </el-empty>
     <div v-if="!isNoData">
       <el-row>
@@ -27,7 +27,7 @@
               </div>
             </template>
           </el-statistic>
-          <ElButton @click="refresh" style="margin-top: 10px;" :icon="Refresh" :loading="isLoading" size="small">刷新</ElButton>
+          <ElButton @click="handleClick" style="margin-top: 10px;" :icon="Refresh" :loading="isLoading" size="small">刷新</ElButton>
         </el-col>
         <el-col :span="8">
           <el-statistic :value="info?.account_status">
@@ -51,19 +51,18 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { ElCol, ElRow } from 'element-plus'
-import { GetInfo } from '../../wailsjs/go/main/App'
+import { GetInfo, RefreshInfo } from '../../wailsjs/go/main/App'
 import { model } from '../../wailsjs/go/models'
 import * as echarts from 'echarts/core';
 import { GaugeChart, GaugeSeriesOption } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
 import { Refresh, Calendar, User, CircleCheck  } from "@element-plus/icons-vue";
+import {EventsOn} from "../../wailsjs/runtime";
 echarts.use([GaugeChart, CanvasRenderer]);
 type EChartsOption = echarts.ComposeOption<GaugeSeriesOption>;
 
 const isLoading = ref(false)
 const info = ref<model.Info>()
-const overall = ref<number>(1)
-const used = ref<number>(0)
 const isNoData = ref<boolean>(true)
 
 const getInfo = async () => {
@@ -71,37 +70,22 @@ const getInfo = async () => {
     await GetInfo().then((res) => {
         if (res.code === 1) {
             info.value = res.data
-            const overall_unit = res.data.overall.replace(/\d*\.?\d*/g, '');
-            const used_unit = res.data.used.replace(/\d*\.?\d*/g, '');
-
-            overall.value = res.data.overall.match(/\d+(\.\d+)?/g)?.join('') || '';
-            used.value = res.data.used.match(/\d+(\.\d+)?/g)?.join('') || '';
-            if (overall_unit === 'G') {
-                overall.value = overall.value * 1024
-            }
-            if (used_unit === 'G') {
-                used.value = used.value * 1024
-            }
             isNoData.value = false;
         } else {
-          used.value = 0;
-          overall.value = 1;
           info.value = {
             user_name: "未知用户",
-            overall: "0",
-            used: "0",
+            overall: 0,
+            used: 0,
             expiration_time: "未知",
             account_status: "未知",
           };
           isNoData.value = true;
         }
-        if (info.value === undefined || info.value === null || info.value.user_name === "") {
-          used.value = 0;
-          overall.value = 1;
+        if (info.value == null || info.value?.user_name == "") {
           info.value = {
             user_name: "未知用户",
-            overall: "0",
-            used: "0",
+            overall: 0,
+            used: 0,
             expiration_time: "未知",
             account_status: "未知",
           };
@@ -113,7 +97,7 @@ const getInfo = async () => {
 
 const chartDom = ref<HTMLElement | null>(null);
 const myChart = ref<echarts.ECharts | null>(null);
-var option: EChartsOption;
+let option: EChartsOption;
 
 const updateOption = async () => {
     if (myChart.value) {
@@ -121,7 +105,7 @@ const updateOption = async () => {
             series: [
                 {
                     min: 0,
-                    max: overall.value,
+                    max: info.value?.overall,
                     splitNumber: 8,
                     type: 'gauge',
                     itemStyle: {
@@ -175,7 +159,7 @@ const updateOption = async () => {
                     },
                     data: [
                         {
-                            value: used.value,
+                            value: info.value?.used,
                             name: '已使用',
                         }
                     ]
@@ -186,26 +170,33 @@ const updateOption = async () => {
     }
 }
 
-const refresh = async () => {
-    await getInfo()
-    if (chartDom.value) {
-        // 初始化 ECharts 实例
-        myChart.value = echarts.init(chartDom.value);
-        await updateOption();
-    }
+const handleClick = async () => {
+  isLoading.value = true
+  await RefreshInfo()
+}
+
+const updateInfo = async () => {
+  isLoading.value = true
+  await getInfo()
+  if (chartDom.value) {
+    // 初始化 ECharts 实例
+    myChart.value = echarts.init(chartDom.value);
+    await updateOption();
+  }
 }
 
 onMounted(async () => {
-    await refresh();
+  EventsOn("updateInfo", async () => {
+    isLoading.value = true
+    await updateInfo();
+  })
 })
-
-
 </script>
 
 <style scoped>
 .statistics-area-chart {
-  width: 250px;
-  height: 250px;
+  width: 240px;
+  height: 240px;
   text-align: center;
 }
 

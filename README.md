@@ -2,37 +2,40 @@
 
 ## 项目简介
 
-一款用于自动登录汕头大学校园网的轻量级工具软件，通过发送登录请求并处理响应，实现自动化登录功能，方便汕大师生登录校园网。
+一款用于自动登录汕头大学校园网的轻量级第三方工具，通过发送登录请求并处理响应，实现自动化登录功能，方便汕大师生登录校园网。提供一个流量信息仪表面板，同时支持流量监控、流量告警、自动注销等功能，防止流量超额使用。将程序添加到开机启动项，即可实现开机自动登录校园网。
 
-该工具支持自动登录、重新认证、注销账号等功能，同时支持初始化配置文件，简化用户的配置过程。将程序添加到开机启动项，即可实现开机自动登录校园网。
-
-A lightweight tool for automatically logging into the Shantou University campus network. It automates the login process by sending login requests and handling responses, making it convenient for Shantou University students and staff to log into the campus network.
+A lightweight third-party tool for automatically logging into the Shantou University campus network. It automates the login process by sending login requests and handling responses, making it convenient for Shantou University students and staff to log into the campus network. It provides a traffic information dashboard and supports traffic monitoring, traffic alerts, and automatic logout to prevent excessive traffic usage. Adding the program to the startup items enables automatic login to the campus network upon startup.
 
 ## 软件版本
 
 ### Cupid Connector
 
-完整版，带 GUI 程序
+完整 GUI 程序，支持流量监控、流量告警、自动注销等功能
 
 仓库地址：[https://github.com/HEX9CF/CupidConnector](https://github.com/HEX9CF/CupidConnector)
 
 ### Cupid Connector Lite
 
-轻量版分支，命令行工具
+轻量版命令行工具，仅提供自动登录功能，可配合自动退出和开机自启使用
 
 仓库地址：[https://github.com/HEX9CF/CupidConnectorLite](https://github.com/HEX9CF/CupidConnectorLite)
 
 ## 功能简介
 
 - **自动登录**：通过发送登录请求，并处理登录响应，实现自动化登录。
+- **自动退出**：用户可以设置登录成功后自动退出程序。
 - **重新认证**：用户可以在需要时重新进行登录认证。
 - **注销账号**：用户可以注销当前登录的账号，退出校园网。
+- **仪表面板**：提供一个流量信息仪表面板，显示当前账号信息和网络流量使用情况。
+- **流量监控**：用户可以开启流量监控功能，设置监控间隔时间，监控网络流量使用情况。
+- **流量告警**：用户可以设置流量告警阈值，当网络流量超过阈值时，会弹出告警提示，提醒用户注意流量使用。
+- **自动注销**：用户可以设置自动注销阈值，当网络流量超过阈值时，自动注销账号，防止超额使用流量。
 
 ## 使用方法
 
 1. **运行程序**：在 Release 页面下载最新的可执行文件，双击运行程序。
-2. **自动登录**：程序会自动发送认证请求，登录校园网，登录成功后会显示登录成功的提示信息。
-3. **自动退出**：如果用户开启了认证成功自动退出功能，程序会在认证成功后立即自动退出。
+2. **设置账号**：打开设置页面，输入校园网账号和密码，点击保存。
+3. **自动登录**：程序会自动发送认证请求，登录校园网，登录成功后会显示登录成功的提示信息。
 4. **开机自启**：用户可以将程序添加到开机启动项，实现开机自动登录校园网。具体方法请参考下文。
 
 ## 配置文件
@@ -45,15 +48,22 @@ BASE_URL=https://a.stu.edu.cn
 
 # 校园网用户名
 STU_USERNAME=username
-
 # 校园网密码
 STU_PASSWORD=password
 
 # 启动程序后自动登录
 AUTO_LOGIN=TRUE
-
 # 认证成功后自动退出程序
 AUTO_EXIT=FALSE
+
+# 自动监控网络流量
+MONITOR_FLUX=TRUE
+# 监控间隔时间（分钟）
+MONITOR_INTERVAL=5
+# 监控告警阈值（剩余流量百分比）
+MONITOR_ALERT_THRESHOLD=30
+# 自动注销阈值（剩余流量百分比）
+MONITOR_LOGOUT_THRESHOLD=10
 ```
 
 ## 开机自启

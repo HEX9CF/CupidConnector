@@ -38,11 +38,7 @@ func saveEnv() error {
 	}
 	defer file.Close()
 
-	content := "BASE_URL=" + defaultBaseUrl + "\n" +
-		"STU_USERNAME=" + Config.Username + "\n" +
-		"STU_PASSWORD=" + Config.Password + "\n" +
-		"AUTO_LOGIN=" + Config.AutoLogin + "\n" +
-		"AUTO_EXIT=" + Config.AutoExit + "\n"
+	content := getEnvContent()
 
 	_, err = file.WriteString(content)
 	if err != nil {
