@@ -14,7 +14,7 @@
             <el-form-item label="启动程序自动登录" label-width="right">
               <el-switch v-model="auto_login"></el-switch>
             </el-form-item>
-              <el-form-item label="连接成功自动退出" label-width="right">
+              <el-form-item label="认证成功自动退出" label-width="right">
                   <el-switch v-model="auto_exit"></el-switch>
               </el-form-item>
           </el-form>

@@ -8,6 +8,7 @@ import (
 	"github.com/go-toast/toast"
 	"log"
 	"os"
+	"time"
 )
 
 // App struct
@@ -33,27 +34,32 @@ func (a *App) startup(ctx context.Context) {
 		err = service.Login()
 		if err != nil {
 			log.Println(err)
-			notification := toast.Notification{
+			n := toast.Notification{
 				AppID:   "Cupid Connector",
 				Title:   "校园网登录失败",
 				Message: "错误信息：" + err.Error(),
 			}
-			err := notification.Push()
+			err := n.Push()
 			if err != nil {
 				log.Fatalln(err)
 			}
 		} else {
-			notification := toast.Notification{
+			msg := "登录成功，用户：" + conf.Config.Username + "，您已通过上网认证！"
+			if conf.Config.AutoExit == "TRUE" {
+				msg += "程序将在3秒后自动退出"
+			}
+			n := toast.Notification{
 				AppID:   "Cupid Connector",
 				Title:   "校园网登录成功",
-				Message: "登录成功，用户：" + conf.Config.Username + "，您已通过上网认证！",
+				Message: msg,
 			}
-			err = notification.Push()
+			err = n.Push()
 			if err != nil {
 				log.Fatalln(err)
 			}
 		}
 		if err == nil && conf.Config.AutoExit == "TRUE" {
+			time.Sleep(3 * time.Second)
 			os.Exit(0)
 		}
 	}
