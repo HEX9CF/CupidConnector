@@ -10,10 +10,17 @@ A lightweight tool for automatically logging into the Shantou University campus 
 
 ## 软件版本
 
-- Cupid Connector（带 GUI 完整版）
-[https://github.com/HEX9CF/CupidConnector](https://github.com/HEX9CF/CupidConnector)
-- Cupid Connector Lite（命令行轻量版）
-[https://github.com/HEX9CF/CupidConnectorLite](https://github.com/HEX9CF/CupidConnectorLite)
+### Cupid Connector
+
+完整版，带 GUI 程序
+
+仓库地址：[https://github.com/HEX9CF/CupidConnector](https://github.com/HEX9CF/CupidConnector)
+
+### Cupid Connector Lite
+
+轻量版分支，命令行工具
+
+仓库地址：[https://github.com/HEX9CF/CupidConnectorLite](https://github.com/HEX9CF/CupidConnectorLite)
 
 ## 功能简介
 
