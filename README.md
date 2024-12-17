@@ -41,7 +41,7 @@ A lightweight tool for automatically logging into the Shantou University campus 
 
 ```env
 # 校园网认证接口
-BASE_URL=http://a.stu.edu.cn
+BASE_URL=https://a.stu.edu.cn
 
 # 校园网用户名
 STU_USERNAME=username

@@ -3,7 +3,7 @@
       <el-dialog v-model="dialogFormVisible" title="设置" width="400">
           <el-form :model="conf">
             <el-form-item label="URL" label-width="right">
-              <el-input v-model="conf.base_url" placeholder="http://a.stu.edu.cn"></el-input>
+              <el-input v-model="conf.base_url" placeholder="https://a.stu.edu.cn"></el-input>
             </el-form-item>
               <el-form-item label="用户" label-width="right">
                   <el-input v-model="conf.username" placeholder="username"></el-input>

@@ -1,7 +1,7 @@
 package conf
 
 const (
-	defaultBaseUrl   = "http://a.stu.edu.cn"
+	defaultBaseUrl   = "https://a.stu.edu.cn"
 	defaultUsername  = ""
 	defaultPassword  = ""
 	defaultAutoLogin = "TRUE"
