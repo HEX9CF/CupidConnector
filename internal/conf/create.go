@@ -1,22 +1,12 @@
 package conf
 
 import (
-	"bufio"
 	"cupid-connector/internal/utils"
 	"log"
 	"os"
 )
 
 func CreateEnv() error {
-	reader := bufio.NewReader(os.Stdin)
-	for reader.Buffered() > 0 {
-		_, err := reader.Discard(reader.Buffered())
-		if err != nil {
-			log.Println(err)
-			break
-		}
-	}
-
 	setDefault()
 
 	err := saveEnv()
