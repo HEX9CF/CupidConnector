@@ -16,20 +16,20 @@ func getEnv() {
 	Config.Basic.AutoLogin = os.Getenv("AUTO_LOGIN")
 	Config.Basic.AutoExit = os.Getenv("AUTO_EXIT")
 
-	Config.Monitor.MonitorFlux = os.Getenv("MONITOR_FLUX")
-	Config.Monitor.MonitorInterval = os.Getenv("MONITOR_INTERVAL")
+	Config.Monitor.Enable = os.Getenv("MONITOR_FLUX")
+	Config.Monitor.Interval = os.Getenv("MONITOR_INTERVAL")
 	Config.Monitor.AlertThreshold = os.Getenv("MONITOR_ALERT_THRESHOLD")
 	Config.Monitor.LogoutThreshold = os.Getenv("MONITOR_LOGOUT_THRESHOLD")
 }
 
 func getEnvContent() string {
-	content := "BASE_URL=" + defaultBaseUrl + "\n" +
+	content := "BASE_URL=" + Config.Basic.BaseUrl + "\n" +
 		"STU_USERNAME=" + Config.Basic.Username + "\n" +
 		"STU_PASSWORD=" + Config.Basic.Password + "\n" +
 		"AUTO_LOGIN=" + Config.Basic.AutoLogin + "\n" +
 		"AUTO_EXIT=" + Config.Basic.AutoExit + "\n" +
-		"MONITOR_FLUX=" + Config.Monitor.MonitorFlux + "\n" +
-		"MONITOR_INTERVAL=" + Config.Monitor.MonitorInterval + "\n" +
+		"MONITOR_FLUX=" + Config.Monitor.Enable + "\n" +
+		"MONITOR_INTERVAL=" + Config.Monitor.Interval + "\n" +
 		"MONITOR_ALERT_THRESHOLD=" + Config.Monitor.AlertThreshold + "\n" +
 		"MONITOR_LOGOUT_THRESHOLD=" + Config.Monitor.LogoutThreshold + "\n"
 	return content

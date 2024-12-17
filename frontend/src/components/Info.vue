@@ -62,8 +62,6 @@ type EChartsOption = echarts.ComposeOption<GaugeSeriesOption>;
 
 const isLoading = ref(false)
 const info = ref<model.Info>()
-const overall = ref<number>(1)
-const used = ref<number>(0)
 const isNoData = ref<boolean>(true)
 
 const getInfo = async () => {
@@ -71,37 +69,22 @@ const getInfo = async () => {
     await GetInfo().then((res) => {
         if (res.code === 1) {
             info.value = res.data
-            const overall_unit = res.data.overall.replace(/\d*\.?\d*/g, '');
-            const used_unit = res.data.used.replace(/\d*\.?\d*/g, '');
-
-            overall.value = res.data.overall.match(/\d+(\.\d+)?/g)?.join('') || '';
-            used.value = res.data.used.match(/\d+(\.\d+)?/g)?.join('') || '';
-            if (overall_unit === 'G') {
-                overall.value = overall.value * 1024
-            }
-            if (used_unit === 'G') {
-                used.value = used.value * 1024
-            }
             isNoData.value = false;
         } else {
-          used.value = 0;
-          overall.value = 1;
           info.value = {
             user_name: "未知用户",
-            overall: "0",
-            used: "0",
+            overall: 0,
+            used: 0,
             expiration_time: "未知",
             account_status: "未知",
           };
           isNoData.value = true;
         }
-        if (info.value === undefined || info.value === null || info.value.user_name === "") {
-          used.value = 0;
-          overall.value = 1;
+        if (info.value == null || info.value?.user_name == "") {
           info.value = {
             user_name: "未知用户",
-            overall: "0",
-            used: "0",
+            overall: 0,
+            used: 0,
             expiration_time: "未知",
             account_status: "未知",
           };
@@ -121,7 +104,7 @@ const updateOption = async () => {
             series: [
                 {
                     min: 0,
-                    max: overall.value,
+                    max: info.value?.overall,
                     splitNumber: 8,
                     type: 'gauge',
                     itemStyle: {
@@ -175,7 +158,7 @@ const updateOption = async () => {
                     },
                     data: [
                         {
-                            value: used.value,
+                            value: info.value?.used,
                             name: '已使用',
                         }
                     ]

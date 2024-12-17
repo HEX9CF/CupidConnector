@@ -14,8 +14,8 @@ type BasicConf struct {
 }
 
 type MonitorConf struct {
-	MonitorFlux     string `json:"monitor_flux"`
-	MonitorInterval string `json:"monitor_interval"`
+	Enable          string `json:"enable"`
+	Interval        string `json:"interval"`
 	AlertThreshold  string `json:"alert_threshold"`
 	LogoutThreshold string `json:"logout_threshold"`
 }

@@ -2,12 +2,14 @@ package main
 
 import (
 	"context"
+	"cupid-connector/internal/api"
 	"cupid-connector/internal/conf"
 	"cupid-connector/internal/model"
 	"cupid-connector/internal/service"
 	"github.com/go-toast/toast"
 	"log"
 	"os"
+	"strconv"
 	"time"
 )
 
@@ -65,6 +67,7 @@ func (a *App) startup(ctx context.Context) {
 			os.Exit(0)
 		}
 	}
+	go a.startMonitor()
 }
 
 func (a *App) UpdateBasicConf(config model.BasicConf) {
@@ -201,4 +204,36 @@ func (a *App) Logout() {
 
 func (a *App) Exit() {
 	os.Exit(0)
+}
+
+func (a *App) startMonitor() {
+	interval, err := strconv.ParseFloat(conf.Config.Monitor.Interval, 64)
+	if err != nil {
+		log.Println("解析监控间隔失败！")
+		interval = 5
+	}
+	ticker := time.NewTicker(time.Duration(int(interval)) * time.Minute)
+	defer ticker.Stop()
+
+	for {
+		select {
+		case <-ticker.C:
+			if conf.Config.Monitor.Enable == "TRUE" {
+				info, err := api.GetInfo(conf.Config.Basic.BaseUrl + "/ac_portal/userflux")
+				if err != nil || info.Username == "" {
+					log.Println("获取信息失败！")
+					continue
+				}
+
+				if conf.Config.Monitor.AlertThreshold != "0" {
+					alertPercent, err := strconv.ParseFloat(conf.Config.Monitor.AlertThreshold, 64)
+					if err != nil {
+						log.Println("解析警告阈值失败！")
+						continue
+					}
+					alertPercent *= 0.01
+				}
+			}
+		}
+	}
 }

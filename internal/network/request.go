@@ -5,6 +5,7 @@ package network
 
 import (
 	"bytes"
+	"errors"
 	"io"
 	"log"
 	"net/http"
@@ -23,6 +24,11 @@ func PostRequest(url string, data string) (string, error) {
 	defer resp.Body.Close()
 
 	log.Println("请求发送成功")
+
+	if resp.StatusCode != http.StatusOK {
+		log.Println("请求失败！")
+		return "", errors.New("请求失败，状态码：" + string(rune(resp.StatusCode)))
+	}
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {

@@ -3,24 +3,24 @@
       <el-dialog v-model="dialogFormVisible" width="400">
           <el-form :model="conf">
             <el-form-item label="流量监控">
-              <el-switch v-model="monitor_flux"></el-switch>
+              <el-switch v-model="enable"></el-switch>
             </el-form-item>
             <el-form-item label="监控间隔">
-              <el-input v-model="conf.monitor_interval" placeholder="5"></el-input>
+              <el-input v-model="conf.interval" placeholder="5" :disabled="!enable"></el-input>
               <span style="font-size: 12px">
               单位：分钟，若为0则关闭流量监控
               </span>
             </el-form-item>
               <el-form-item label="告警阈值">
-                <el-input v-model="conf.alert_threshold" placeholder="1024"></el-input>
+                <el-input v-model="conf.alert_threshold" placeholder="30" :disabled="!enable"></el-input>
                 <span style="font-size: 12px">
-                单位：M，若为0则关闭流量告警
+                剩余流量百分比，若为0则关闭流量告警
                 </span>
               </el-form-item>
             <el-form-item label="登出阈值">
-              <el-input v-model="conf.logout_threshold" placeholder="512"></el-input>
+              <el-input v-model="conf.logout_threshold" placeholder="10" :disabled="!enable"></el-input>
               <span style="font-size: 12px">
-              单位：M，若为0则关闭自动登出
+              剩余流量百分比，若为0则关闭自动登出
               </span>
             </el-form-item>
           </el-form>
@@ -42,11 +42,11 @@ import {Aim} from "@element-plus/icons-vue";
 
 const isLoading = ref(false);
 const dialogFormVisible = ref(false)
-const monitor_flux = ref<boolean>(false)
+const enable = ref<boolean>(false)
 
 const conf = ref<model.MonitorConf>({
-  monitor_flux: "FALSE",
-  monitor_interval: "0",
+  enable: "FALSE",
+  interval: "0",
   alert_threshold: "0",
   logout_threshold: "0",
 });
@@ -54,14 +54,14 @@ const conf = ref<model.MonitorConf>({
 const handleClick = () => {
     GetMonitorConf().then(res => {
         conf.value = res.data;
-        monitor_flux.value = res.data.monitor_flux === "TRUE";
+        enable.value = res.data.enable === "TRUE";
     })
     dialogFormVisible.value = true;
 };
 
 const handleConfirm = async () => {
   isLoading.value = true;
-  conf.value.monitor_flux = monitor_flux.value ? "TRUE" : "FALSE";
+  conf.value.enable = enable.value ? "TRUE" : "FALSE";
   await UpdateMonitorConf(conf.value).then(() => {
     isLoading.value = false;
   });
