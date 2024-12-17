@@ -11,6 +11,9 @@
               <setting />
             </el-col>
             <el-col :span="4">
+              <Monitor />
+            </el-col>
+            <el-col :span="4">
               <Login />
             </el-col>
             <el-col :span="4">
@@ -32,6 +35,7 @@ import Login from "./components/Login.vue";
 import Logout from "./components/Logout.vue";
 import Menu from "./components/Menu.vue";
 import About from "./components/About.vue";
+import Monitor from "./components/Monitor.vue";
 </script>
 
 <style scoped>

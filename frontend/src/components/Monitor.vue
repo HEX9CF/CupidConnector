@@ -1,0 +1,70 @@
+<template>
+      <el-button type="success" @click="handleClick" :icon="Aim" size="small">监控</el-button>
+      <el-dialog v-model="dialogFormVisible" width="400">
+          <el-form :model="conf">
+            <el-form-item label="流量监控">
+              <el-switch v-model="monitor_flux"></el-switch>
+            </el-form-item>
+            <el-form-item label="监控间隔">
+              <el-input v-model="conf.monitor_interval" placeholder="5"></el-input>
+              <span style="font-size: 12px">
+              单位：分钟，若为0则关闭流量监控
+              </span>
+            </el-form-item>
+              <el-form-item label="告警阈值">
+                <el-input v-model="conf.alert_threshold" placeholder="1024"></el-input>
+                <span style="font-size: 12px">
+                单位：M，若为0则关闭流量告警
+                </span>
+              </el-form-item>
+            <el-form-item label="登出阈值">
+              <el-input v-model="conf.logout_threshold" placeholder="512"></el-input>
+              <span style="font-size: 12px">
+              单位：M，若为0则关闭自动登出
+              </span>
+            </el-form-item>
+          </el-form>
+          <template #footer>
+              <div class="dialog-footer">
+                  <el-button @click="dialogFormVisible = false">取消</el-button>
+                  <el-button type="primary" @click="handleConfirm" :loading="isLoading">确认</el-button>
+              </div>
+          </template>
+      </el-dialog>
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue"
+import { model } from '../../wailsjs/go/models'
+import { ElButton, ElDialog, ElForm, ElInput, ElSwitch } from "element-plus"
+import { GetMonitorConf, UpdateMonitorConf } from '../../wailsjs/go/main/App'
+import {Aim} from "@element-plus/icons-vue";
+
+const isLoading = ref(false);
+const dialogFormVisible = ref(false)
+const monitor_flux = ref<boolean>(false)
+
+const conf = ref<model.MonitorConf>({
+  monitor_flux: "FALSE",
+  monitor_interval: "0",
+  alert_threshold: "0",
+  logout_threshold: "0",
+});
+
+const handleClick = () => {
+    GetMonitorConf().then(res => {
+        conf.value = res.data;
+        monitor_flux.value = res.data.monitor_flux === "TRUE";
+    })
+    dialogFormVisible.value = true;
+};
+
+const handleConfirm = async () => {
+  isLoading.value = true;
+  conf.value.monitor_flux = monitor_flux.value ? "TRUE" : "FALSE";
+  await UpdateMonitorConf(conf.value).then(() => {
+    isLoading.value = false;
+  });
+  dialogFormVisible.value = false;
+};
+</script>

@@ -7,5 +7,5 @@ import (
 )
 
 func GetInfo() (model.Info, error) {
-	return api.GetInfo(conf.Config.BaseUrl + "/ac_portal/userflux")
+	return api.GetInfo(conf.Config.Basic.BaseUrl + "/ac_portal/userflux")
 }

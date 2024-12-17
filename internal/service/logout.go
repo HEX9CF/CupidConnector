@@ -7,8 +7,8 @@ import (
 )
 
 func Logout() error {
-	if conf.Config.BaseUrl == "" {
+	if conf.Config.Basic.BaseUrl == "" {
 		return errors.New("URL不能为空！")
 	}
-	return api.Logout(conf.Config.BaseUrl + "/ac_portal/login.php")
+	return api.Logout(conf.Config.Basic.BaseUrl + "/ac_portal/login.php")
 }
