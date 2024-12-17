@@ -207,6 +207,7 @@ func (a *App) Exit() {
 }
 
 func (a *App) startMonitor() {
+	log.Println("启动流量监控")
 	interval, err := strconv.ParseFloat(conf.Config.Monitor.Interval, 64)
 	if err != nil {
 		log.Println("解析监控间隔失败！")
@@ -219,11 +220,14 @@ func (a *App) startMonitor() {
 		select {
 		case <-ticker.C:
 			if conf.Config.Monitor.Enable == "TRUE" {
+				log.Println("流量监控中...")
+
 				info, err := api.GetInfo(conf.Config.Basic.BaseUrl + "/ac_portal/userflux")
 				if err != nil || info.Username == "" {
 					log.Println("获取信息失败！")
 					continue
 				}
+				remainValue := info.Overall - info.Used
 
 				if conf.Config.Monitor.AlertThreshold != "0" {
 					alertPercent, err := strconv.ParseFloat(conf.Config.Monitor.AlertThreshold, 64)
@@ -232,6 +236,48 @@ func (a *App) startMonitor() {
 						continue
 					}
 					alertPercent *= 0.01
+					if remainValue/info.Overall < alertPercent {
+						msg := "当前已用流量 " + strconv.FormatFloat(info.Used, 'f', 2, 64) + "MB，总流量 " + strconv.FormatFloat(info.Overall, 'f', 2, 64) + "MB，剩余流量不足 " + strconv.FormatFloat(remainValue, 'f', 2, 64) + "MB，已达到告警阈值（" + conf.Config.Monitor.AlertThreshold + "%），请注意流量使用！"
+						log.Println("流量告警：" + msg)
+						n := toast.Notification{
+							AppID:   AppID,
+							Title:   "流量告警",
+							Message: msg,
+						}
+						err = n.Push()
+						if err != nil {
+							log.Println(err)
+							continue
+						}
+					}
+				}
+
+				if conf.Config.Monitor.LogoutThreshold != "0" {
+					logoutPercent, err := strconv.ParseFloat(conf.Config.Monitor.LogoutThreshold, 64)
+					if err != nil {
+						log.Println("解析注销阈值失败！")
+						continue
+					}
+					logoutPercent *= 0.01
+					if (info.Overall-info.Used)/info.Overall < logoutPercent {
+						err = service.Logout()
+						if err != nil {
+							log.Println(err)
+							continue
+						}
+						msg := "已用流量 " + strconv.FormatFloat(info.Used, 'f', 2, 64) + "MB，总流量 " + strconv.FormatFloat(info.Overall, 'f', 2, 64) + "MB，剩余流量不足 " + strconv.FormatFloat(remainValue, 'f', 2, 64) + "MB，已达到注销阈值（" + conf.Config.Monitor.LogoutThreshold + "%），将自动注销校园网账号！"
+						log.Println("自动注销：" + msg)
+						n := toast.Notification{
+							AppID:   AppID,
+							Title:   "自动注销",
+							Message: msg,
+						}
+						err = n.Push()
+						if err != nil {
+							log.Println(err)
+							continue
+						}
+					}
 				}
 			}
 		}
