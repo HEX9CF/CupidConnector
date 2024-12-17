@@ -225,11 +225,6 @@ func (a *App) startMonitor() {
 							}
 							logoutPercent *= 0.01
 							if (data.Info.Overall-data.Info.Used)/data.Info.Overall < logoutPercent {
-								err = logout.Logout()
-								if err != nil {
-									log.Println(err)
-									continue
-								}
 								msg := "已用流量 " + strconv.FormatFloat(data.Info.Used, 'f', 2, 64) + "MB，总流量 " + strconv.FormatFloat(data.Info.Overall, 'f', 2, 64) + "MB，剩余流量不足 " + strconv.FormatFloat(remainFlux, 'f', 2, 64) + "MB，已达到注销阈值（" + data.Config.Monitor.LogoutThreshold + "%），将自动注销校园网账号！"
 								log.Println("自动注销：" + msg)
 								n := toast.Notification{
@@ -242,6 +237,12 @@ func (a *App) startMonitor() {
 									log.Println(err)
 									continue
 								}
+								err = logout.Logout()
+								if err != nil {
+									log.Println(err)
+									continue
+								}
+								a.RefreshInfo()
 							}
 							log.Println("自动注销检测完成")
 						}
