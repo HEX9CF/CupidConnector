@@ -29,33 +29,33 @@ func (a *App) startup(ctx context.Context) {
 		log.Println(err)
 		return
 	}
-	err = service.Login()
-	if err != nil {
-		log.Println(err)
-		notification := toast.Notification{
-			AppID:   "Cupid Connector",
-			Title:   "校园网登录失败",
-			Message: "错误信息：" + err.Error(),
-		}
-		err := notification.Push()
+	if conf.Config.AutoLogin == "TRUE" {
+		err = service.Login()
 		if err != nil {
-			log.Fatalln(err)
-			return
+			log.Println(err)
+			notification := toast.Notification{
+				AppID:   "Cupid Connector",
+				Title:   "校园网登录失败",
+				Message: "错误信息：" + err.Error(),
+			}
+			err := notification.Push()
+			if err != nil {
+				log.Fatalln(err)
+			}
+		} else {
+			notification := toast.Notification{
+				AppID:   "Cupid Connector",
+				Title:   "校园网登录成功",
+				Message: "登录成功，用户：" + conf.Config.Username + "，您已通过上网认证！",
+			}
+			err = notification.Push()
+			if err != nil {
+				log.Fatalln(err)
+			}
 		}
-		return
-	}
-	notification := toast.Notification{
-		AppID:   "Cupid Connector",
-		Title:   "校园网登录成功",
-		Message: "登录成功，用户：" + conf.Config.Username + "，您已通过上网认证！",
-	}
-	err = notification.Push()
-	if err != nil {
-		log.Fatalln(err)
-		return
-	}
-	if err == nil && conf.Config.AutoExit == "TRUE" {
-		os.Exit(0)
+		if err == nil && conf.Config.AutoExit == "TRUE" {
+			os.Exit(0)
+		}
 	}
 }
 

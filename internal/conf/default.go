@@ -1,15 +1,17 @@
 package conf
 
 const (
-	defaultUrl      = "http://a.stu.edu.cn/ac_portal/login.php"
-	defaultUsername = ""
-	defaultPasswrod = ""
-	defaultAutoExit = "FALSE"
+	defaultBaseUrl   = "http://a.stu.edu.cn"
+	defaultUsername  = ""
+	defaultPassword  = ""
+	defaultAutoLogin = "TRUE"
+	defaultAutoExit  = "FALSE"
 )
 
 func setDefault() {
-	Config.Url = defaultUrl
+	Config.BaseUrl = defaultBaseUrl
 	Config.Username = defaultUsername
-	Config.Password = defaultPasswrod
+	Config.Password = defaultPassword
+	Config.AutoLogin = defaultAutoLogin
 	Config.AutoExit = defaultAutoExit
 }

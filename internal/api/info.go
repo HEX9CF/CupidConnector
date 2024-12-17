@@ -6,8 +6,8 @@ import (
 	"cupid-connector/internal/parser"
 )
 
-func GetInfo() (model.Info, error) {
-	body, err := network.PostRequest("https://a.stu.edu.cn/ac_portal/userflux", "")
+func GetInfo(url string) (model.Info, error) {
+	body, err := network.PostRequest(url, "")
 	if err != nil {
 		return model.Info{}, err
 	}

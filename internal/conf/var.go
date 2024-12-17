@@ -10,8 +10,9 @@ var (
 )
 
 func getEnv() {
-	Config.Url = os.Getenv("STU_URL")
+	Config.BaseUrl = os.Getenv("BASE_URL")
 	Config.Username = os.Getenv("STU_USERNAME")
 	Config.Password = os.Getenv("STU_PASSWORD")
+	Config.AutoLogin = os.Getenv("AUTO_LOGIN")
 	Config.AutoExit = os.Getenv("AUTO_EXIT")
 }

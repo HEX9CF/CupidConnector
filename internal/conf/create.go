@@ -38,9 +38,10 @@ func saveEnv() error {
 	}
 	defer file.Close()
 
-	content := "STU_URL=" + defaultUrl + "\n" +
+	content := "BASE_URL=" + defaultBaseUrl + "\n" +
 		"STU_USERNAME=" + Config.Username + "\n" +
 		"STU_PASSWORD=" + Config.Password + "\n" +
+		"AUTO_LOGIN=" + Config.AutoLogin + "\n" +
 		"AUTO_EXIT=" + Config.AutoExit + "\n"
 
 	_, err = file.WriteString(content)
