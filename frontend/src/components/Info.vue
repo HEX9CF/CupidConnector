@@ -57,6 +57,7 @@ import * as echarts from 'echarts/core';
 import { GaugeChart, GaugeSeriesOption } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
 import { Refresh, Calendar, User, CircleCheck  } from "@element-plus/icons-vue";
+import {EventsOn} from "../../wailsjs/runtime";
 echarts.use([GaugeChart, CanvasRenderer]);
 type EChartsOption = echarts.ComposeOption<GaugeSeriesOption>;
 
@@ -180,6 +181,9 @@ const refresh = async () => {
 
 onMounted(async () => {
     await refresh();
+    EventsOn("refreshInfo", async () => {
+        await refresh();
+    })
 })
 
 

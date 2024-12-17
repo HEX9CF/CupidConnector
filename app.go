@@ -7,6 +7,7 @@ import (
 	"cupid-connector/internal/model"
 	"cupid-connector/internal/service"
 	"github.com/go-toast/toast"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"log"
 	"os"
 	"strconv"
@@ -19,6 +20,8 @@ const AppID = "Cupid Connector"
 type App struct {
 	ctx context.Context
 }
+
+var ticker *time.Ticker
 
 // NewApp creates a new App application struct
 func NewApp() *App {
@@ -67,7 +70,8 @@ func (a *App) startup(ctx context.Context) {
 			os.Exit(0)
 		}
 	}
-	go a.startMonitor()
+
+	go a.startMonitor(ctx)
 }
 
 func (a *App) UpdateBasicConf(config model.BasicConf) {
@@ -122,6 +126,7 @@ func (a *App) UpdateMonitorConf(config model.MonitorConf) {
 			return
 		}
 	}
+	a.resetTicker()
 }
 
 func (a *App) GetBasicConf() model.Resp {
@@ -206,22 +211,41 @@ func (a *App) Exit() {
 	os.Exit(0)
 }
 
-func (a *App) startMonitor() {
-	log.Println("启动流量监控")
+func (a *App) initTicker() {
+	log.Println("初始化定时器，间隔：" + conf.Config.Monitor.Interval + " 分钟")
 	interval, err := strconv.ParseFloat(conf.Config.Monitor.Interval, 64)
 	if err != nil {
 		log.Println("解析监控间隔失败！")
 		interval = 5
 	}
-	ticker := time.NewTicker(time.Duration(int(interval)) * time.Minute)
+	ticker = time.NewTicker(time.Duration(int(interval)) * time.Second)
 	defer ticker.Stop()
+}
 
+func (a *App) resetTicker() {
+	log.Println("重置定时器，间隔：" + conf.Config.Monitor.Interval + " 分钟")
+	interval, err := strconv.ParseFloat(conf.Config.Monitor.Interval, 64)
+	if err != nil {
+		log.Println("解析监控间隔失败！")
+		interval = 5
+	}
+	ticker.Reset(time.Duration(int(interval)) * time.Second)
+}
+
+func (a *App) startMonitor(ctx context.Context) {
+	a.initTicker()
 	for {
 		select {
 		case <-ticker.C:
-			if conf.Config.Monitor.Enable == "TRUE" {
+			if conf.Config.Monitor.Enable == "TRUE" &&
+				conf.Config.Monitor.Interval != "0" &&
+				conf.Config.Basic.Username != "" {
 				log.Println("流量监控中...")
 
+				// 刷新信息
+				runtime.EventsEmit(ctx, "refreshInfo")
+
+				// 获取信息
 				info, err := api.GetInfo(conf.Config.Basic.BaseUrl + "/ac_portal/userflux")
 				if err != nil || info.Username == "" {
 					log.Println("获取信息失败！")
@@ -229,6 +253,7 @@ func (a *App) startMonitor() {
 				}
 				remainValue := info.Overall - info.Used
 
+				// 流量告警
 				if conf.Config.Monitor.AlertThreshold != "0" {
 					alertPercent, err := strconv.ParseFloat(conf.Config.Monitor.AlertThreshold, 64)
 					if err != nil {
@@ -252,6 +277,7 @@ func (a *App) startMonitor() {
 					}
 				}
 
+				// 自动注销
 				if conf.Config.Monitor.LogoutThreshold != "0" {
 					logoutPercent, err := strconv.ParseFloat(conf.Config.Monitor.LogoutThreshold, 64)
 					if err != nil {
