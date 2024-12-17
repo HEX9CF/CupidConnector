@@ -78,6 +78,15 @@ MONITOR_LOGOUT_THRESHOLD=10
 
 如果需要取消开机自启，只需将快捷方式移出启动文件夹即可。
 
+## 软件界面
+
+![image](https://github.com/user-attachments/assets/36d39e22-4b10-46d2-988b-b5a8ee032547)
+
+![image](https://github.com/user-attachments/assets/fcb8f4d5-e125-4ac8-82dc-196f0e2daedf)
+
+![image](https://github.com/user-attachments/assets/fb500d22-2a25-48f2-b2de-8d22352b61bc)
+
+
 ## 趣闻
 
 项目名称 "Cupid Connector" 灵感来源于游戏《Death Stranding》中的 "丘比特连接器"（Q-pid）。在游戏中，丘比特连接器是一种设备，用于连接和扩展开罗尔网络，使得玩家能够与更广阔的世界进行通信和互动。这个设备在游戏中扮演着连接和桥梁的角色，象征着连接和沟通的重要性。Cupid Connector 作为一个自动登录校园网的工具，同样扮演着连接的角色。它将学生和教职工与校园网络连接起来，使他们能够方便地访问网络资源，寓意它能够像游戏中的丘比特连接器一样，为用户架起一座连接的桥梁。
