@@ -69,7 +69,7 @@ func (a *App) UpdateMonitorConf(config model.MonitorConf) {
 			return
 		}
 	}
-	err = ticker.Init()
+	err = ticker.Set()
 	if err != nil {
 		log.Println(err)
 		return
@@ -93,9 +93,9 @@ func (a *App) GetInfo() model.Resp {
 	return model.Resp{Code: model.ResponseCodeOk, Msg: "success", Data: data.Info}
 }
 
-// 手动刷新信息
+// 刷新流量信息
 func (a *App) RefreshInfo() {
-	log.Println("手动刷新信息")
+	log.Println("正在刷新流量信息...")
 	err := info.Refresh()
 	if err != nil {
 		return

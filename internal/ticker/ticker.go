@@ -10,7 +10,7 @@ import (
 var Ticker *time.Ticker
 
 // 初始化定时器
-func Init() error {
+func Set() error {
 	if data.Config.Monitor.Enable != "TRUE" || data.Config.Monitor.Interval == "0" {
 		log.Println("关闭定时器")
 		if Ticker != nil {

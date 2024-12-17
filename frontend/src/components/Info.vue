@@ -186,7 +186,6 @@ const updateInfo = async () => {
 }
 
 onMounted(async () => {
-  await RefreshInfo()
   EventsOn("updateInfo", async () => {
     isLoading.value = true
     await updateInfo();

@@ -33,6 +33,8 @@ func (a *App) startup(ctx context.Context) {
 		log.Println(err)
 		return
 	}
+	// 刷新信息
+	a.RefreshInfo()
 	if data.Config.Basic.AutoLogin == "TRUE" {
 		err = login.Login()
 		if err != nil {
@@ -60,6 +62,8 @@ func (a *App) startup(ctx context.Context) {
 			if err != nil {
 				log.Fatalln(err)
 			}
+			// 刷新信息
+			a.RefreshInfo()
 		}
 		if err == nil && data.Config.Basic.AutoExit == "TRUE" {
 			time.Sleep(3 * time.Second)
@@ -67,11 +71,8 @@ func (a *App) startup(ctx context.Context) {
 		}
 	}
 
-	// 刷新信息
-	a.RefreshInfo()
-
 	// 初始化定时器
-	err = ticker.Init()
+	err = ticker.Set()
 	if err != nil {
 		return
 	}
