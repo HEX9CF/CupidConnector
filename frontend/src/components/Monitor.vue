@@ -17,10 +17,10 @@
                 剩余流量百分比，若为0则关闭流量告警
                 </span>
               </el-form-item>
-            <el-form-item label="登出阈值">
+            <el-form-item label="注销阈值">
               <el-slider v-model="logout_threshold" show-input size="small" max="100" :disabled="!enable" />
               <span style="font-size: 12px">
-              剩余流量百分比，若为0则关闭自动登出
+              剩余流量百分比，若为0则关闭自动注销
               </span>
             </el-form-item>
           </el-form>
