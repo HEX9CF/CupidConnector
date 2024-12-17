@@ -1,23 +1,24 @@
 <template>
-  <el-card>
     <el-empty v-if="isNoData">
       <ElButton @click="refresh" style="margin-top: 10px;" :icon="Refresh" :loading="isLoading" >刷新</ElButton>
     </el-empty>
-    <ElRow :gutter="20" style="width: 100%;" v-if="!isNoData">
-        <ElCol :span="12">
-          <div>
-            <h3>流量信息 [5分钟前]</h3>
-            <p>用户名：{{ info?.user_name }}</p>
-            <p>过期时间：{{ info?.expiration_time }}</p>
-            <p>用户状态：{{ info?.account_status }}</p>
-          </div>
-          <ElButton @click="refresh" style="margin-top: 10px;" :icon="Refresh" :loading="isLoading" >刷新</ElButton>
-        </ElCol>
-        <ElCol :span="12" style="text-align: right">
-          <div class="statistics-area-chart" ref="chartDom"></div>
-        </ElCol>
-    </ElRow>
-  </el-card>
+    <div v-if="!isNoData">
+      <el-row>
+        <el-col :span="8">
+          <el-statistic title="过期时间" :value="info?.expiration_time" />
+        </el-col>
+        <el-col :span="8">
+          <el-statistic title="用户名称" :value="info?.user_name" />
+          <ElButton @click="refresh" style="margin-top: 10px;" :icon="Refresh" :loading="isLoading" size="small">刷新</ElButton>
+        </el-col>
+        <el-col :span="8">
+          <el-statistic title="用户状态" :value="info?.account_status" />
+        </el-col>
+      </el-row>
+      <div class="flux-chart">
+        <div class="statistics-area-chart" ref="chartDom"></div>
+      </div>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -178,5 +179,12 @@ onMounted(async () => {
 .statistics-area-chart {
   width: 270px;
   height: 270px;
+  text-align: center;
+}
+
+.flux-chart {
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
 </style>

@@ -164,3 +164,7 @@ func (a *App) Logout() {
 		}
 	}
 }
+
+func (a *App) Exit() {
+	os.Exit(0)
+}

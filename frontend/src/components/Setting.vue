@@ -1,6 +1,6 @@
 <template>
-      <el-button type="primary" @click="handleClick" :icon="Setting">设置</el-button>
-      <el-dialog v-model="dialogFormVisible" title="设置" width="500">
+      <el-button type="primary" @click="handleClick" :icon="Setting" size="small">设置</el-button>
+      <el-dialog v-model="dialogFormVisible" title="设置" width="400">
           <el-form :model="conf">
             <el-form-item label="URL" label-width="right">
               <el-input v-model="conf.base_url" placeholder="http://a.stu.edu.cn"></el-input>

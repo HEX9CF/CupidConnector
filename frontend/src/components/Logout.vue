@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ElButton} from "element-plus";
-import { SwitchButton } from "@element-plus/icons-vue";
+import { CircleClose } from "@element-plus/icons-vue";
 import {Logout} from "../../wailsjs/go/main/App";
 import {ref} from "vue";
 
@@ -15,7 +15,7 @@ const handleClick = async () => {
 </script>
 
 <template>
-  <el-button type="danger" @click="handleClick" :loading="isLoading" :icon="SwitchButton">注销</el-button>
+  <el-button type="danger" @click="handleClick" :loading="isLoading" :icon="CircleClose" size="small">注销</el-button>
 </template>
 
 <style scoped>

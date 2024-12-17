@@ -15,7 +15,7 @@ const handleClick = async () => {
 </script>
 
 <template>
-  <el-button type="warning" @click="handleClick" :loading="isLoading" :icon="RefreshRight">重登</el-button>
+  <el-button type="warning" @click="handleClick" :loading="isLoading" :icon="RefreshRight" size="small">重登</el-button>
 </template>
 
 <style scoped>
