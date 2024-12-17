@@ -10,7 +10,8 @@ import (
 func ParseLoginResp(bodyStr string) (model.LoginResp, error) {
 	var resp model.LoginResp
 
-	//log.Println(bodyStr)
+	log.Println(bodyStr)
+	bodyStr = strings.ReplaceAll(bodyStr, `'NOAUTH:*'`, `NOAUTH:*`)
 	bodyStr = strings.ReplaceAll(bodyStr, "'", "\"")
 	err := json.Unmarshal([]byte(bodyStr), &resp)
 	if err != nil {

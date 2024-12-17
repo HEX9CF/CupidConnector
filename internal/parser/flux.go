@@ -12,6 +12,16 @@ import (
 )
 
 func ParseFluxInfo(body string) model.Info {
+	if strings.Contains(body, "错误信息：临时用户和未登录用户不能查看流量信息！") {
+		log.Println("错误信息：临时用户和未登录用户不能查看流量信息！")
+		return model.Info{
+			Username:       "临时用户",
+			Overall:        1024,
+			Used:           0,
+			ExpirationTime: "未知",
+			AccountStatus:  "未知",
+		}
+	}
 	info := model.Info{}
 	r := bytes.NewReader([]byte(body))
 	z := html.NewTokenizer(bufio.NewReader(r))
@@ -21,15 +31,12 @@ func ParseFluxInfo(body string) model.Info {
 	)
 	for {
 		tt := z.Next()
-
 		switch tt {
 		case html.ErrorToken:
-			// End of the document, we're done
 			return info
 		case html.StartTagToken, html.SelfClosingTagToken:
 			t := z.Token()
 			if t.Data == "td" {
-				// Read the text content of the td tag
 				for {
 					tt = z.Next()
 					if tt == html.TextToken {
@@ -38,7 +45,6 @@ func ParseFluxInfo(body string) model.Info {
 							key = strings.TrimSpace(text)
 						} else {
 							value = strings.TrimSpace(text)
-							// Map the key to the value in the info struct
 							switch key {
 							case "用户名称：":
 								info.Username = value

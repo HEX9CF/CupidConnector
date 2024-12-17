@@ -21,13 +21,12 @@ func Login(url string, username string, password string, rememberPwd string) err
 	if err != nil {
 		return err
 	}
-
 	log.Println(utils.PrettyStruct(resp))
 
 	if resp.Success != true {
-		return errors.New("登录失败：" + resp.Msg)
+		return errors.New("登录失败，" + resp.Msg)
 	}
 
-	log.Println("登录成功，用户：" + username + "，您已通过上网认证！")
+	log.Println("登录成功，用户：" + resp.UserName + "，您已通过上网认证！")
 	return nil
 }
