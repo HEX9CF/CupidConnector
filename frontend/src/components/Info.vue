@@ -1,9 +1,12 @@
 <template>
   <el-card>
-    <ElRow :gutter="20" style="width: 100%;">
+    <el-empty v-if="isNoData">
+      <ElButton @click="refresh" style="margin-top: 10px;" :icon="Refresh" :loading="isLoading" >刷新</ElButton>
+    </el-empty>
+    <ElRow :gutter="20" style="width: 100%;" v-if="!isNoData">
         <ElCol :span="12">
           <div>
-            <h3>用户信息</h3>
+            <h3>流量信息 [5分钟前]</h3>
             <p>用户名：{{ info?.user_name }}</p>
             <p>过期时间：{{ info?.expiration_time }}</p>
             <p>用户状态：{{ info?.account_status }}</p>
@@ -31,8 +34,9 @@ type EChartsOption = echarts.ComposeOption<GaugeSeriesOption>;
 
 const isLoading = ref(false)
 const info = ref<model.Info>()
-const overall = ref<number>(0)
+const overall = ref<number>(1)
 const used = ref<number>(0)
+const isNoData = ref<boolean>(true)
 
 const getInfo = async () => {
   isLoading.value = true
@@ -50,9 +54,30 @@ const getInfo = async () => {
             if (used_unit === 'G') {
                 used.value = used.value * 1024
             }
+            isNoData.value = false;
         } else {
-          overall.value = 0;
           used.value = 0;
+          overall.value = 1;
+          info.value = {
+            user_name: "未知用户",
+            overall: "0",
+            used: "0",
+            expiration_time: "未知",
+            account_status: "未知",
+          };
+          isNoData.value = true;
+        }
+        if (info.value === undefined || info.value === null || info.value.user_name === "") {
+          used.value = 0;
+          overall.value = 1;
+          info.value = {
+            user_name: "未知用户",
+            overall: "0",
+            used: "0",
+            expiration_time: "未知",
+            account_status: "未知",
+          };
+          isNoData.value = true;
         }
       isLoading.value = false
     })
