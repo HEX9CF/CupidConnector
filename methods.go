@@ -10,7 +10,6 @@ import (
 	"cupid-connector/internal/ticker"
 	"cupid-connector/internal/tray"
 	"log"
-	"os"
 	"strconv"
 
 	"github.com/go-toast/toast"
@@ -177,7 +176,7 @@ func (a *App) Logout() {
 
 // 退出
 func (a *App) Exit() {
-	os.Exit(0)
+	runtime.Quit(a.ctx)
 }
 
 // 启动监控
