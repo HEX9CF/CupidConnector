@@ -46,8 +46,8 @@
     <div class="flux-chart">
       <div class="statistics-area-chart" ref="chartDom"></div>
     </div>
-    <div class="surplus">
-      剩余流量:{{ parseFloat((info.overall - info.used).toFixed(3)) }}MB
+    <div class="surplus" v-if="info">
+      剩余流量:{{ parseFloat((info.overall - info?.used).toFixed(3)) }}MB
     </div>
   </div>
 </template>
@@ -117,7 +117,7 @@ const updateOption = async () => {
             shadowColor: 'rgba(0,138,255,0.45)',
             shadowBlur: 10,
             shadowOffsetX: 2,
-            shadowOffsetY: 2
+            shadowOffsetY: 2,
           },
           progress: {
             show: true,
@@ -125,7 +125,13 @@ const updateOption = async () => {
           },
           axisLine: {
             lineStyle: {
-              width: 18
+              width: 18,
+              color: [
+                [0.25, '#7CFFB2'],
+                [0.5, '#58D9F9'],
+                [0.75, '#FDDD60'],
+                [1, '#FF6E76']
+              ]
             }
           },
           axisTick: {

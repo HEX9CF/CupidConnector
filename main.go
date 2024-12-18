@@ -14,9 +14,10 @@ import (
 var assets embed.FS
 
 func main() {
+
 	// Create an instance of the app structure
 	app := NewApp()
-	trayApp := tray.NewTray()
+	tray.TrayApp = tray.NewTray()
 
 	// Create application with options
 	err := wails.Run(&options.App{
@@ -29,11 +30,11 @@ func main() {
 		BackgroundColour: &options.RGBA{R: 0, G: 0, B: 0, A: 1},
 		OnStartup: func(ctx context.Context) {
 			app.startup(ctx)
-			trayApp.Startup(ctx)
+			tray.TrayApp.Startup(ctx)
 		},
 		Bind: []interface{}{
 			app,
-			trayApp,
+			tray.TrayApp,
 		},
 		DisableResize: true,
 		Frameless:     true,

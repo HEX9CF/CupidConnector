@@ -8,11 +8,13 @@ import (
 	"cupid-connector/internal/service/logout"
 	"cupid-connector/internal/service/setting"
 	"cupid-connector/internal/ticker"
-	"github.com/go-toast/toast"
-	"github.com/wailsapp/wails/v2/pkg/runtime"
+	"cupid-connector/internal/tray"
 	"log"
 	"os"
 	"strconv"
+
+	"github.com/go-toast/toast"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 // 更新基础配置
@@ -99,6 +101,10 @@ func (a *App) RefreshInfo() {
 	err := info.Refresh()
 	if err != nil {
 		return
+	}
+	if tray.TrayApp.IsStartUp() {
+		log.Println("更新托盘提示信息")
+		tray.TrayApp.TooltipRefresh()
 	}
 	runtime.EventsEmit(a.ctx, "updateInfo")
 }

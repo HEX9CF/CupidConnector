@@ -6,10 +6,11 @@ import (
 	"cupid-connector/internal/data"
 	"cupid-connector/internal/service/login"
 	"cupid-connector/internal/ticker"
-	"github.com/go-toast/toast"
 	"log"
 	"os"
 	"time"
+
+	"github.com/go-toast/toast"
 )
 
 const AppID = "Cupid Connector"

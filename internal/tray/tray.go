@@ -2,11 +2,15 @@ package tray
 
 import (
 	"context"
+	"cupid-connector/internal/data"
 	_ "embed"
+	"fmt"
 
 	"github.com/getlantern/systray"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
+
+var TrayApp *Tray
 
 //go:embed icon.ico
 var icon []byte
@@ -38,14 +42,18 @@ func (t *Tray) onReady() {
 			select {
 			case <-show.ClickedCh:
 				t.showMainWindow()
-			case <-t.ctx.Done():
-				return
 			case <-quit.ClickedCh:
 				t.onExit()
+			case <-t.ctx.Done():
+				return
 			}
 		}
 	}()
-	systray.SetTooltip("Cupid Connector")
+	t.TooltipRefresh()
+}
+
+func (t *Tray) TooltipRefresh() {
+	systray.SetTooltip(fmt.Sprintf("剩余流量：%.3f MB", data.Info.Overall-data.Info.Used))
 }
 
 func (t *Tray) onExit() {
@@ -54,4 +62,8 @@ func (t *Tray) onExit() {
 
 func (t *Tray) showMainWindow() {
 	runtime.WindowShow(t.ctx)
+}
+
+func (t *Tray) IsStartUp() bool {
+	return t.ctx != nil
 }
