@@ -11,6 +11,7 @@ type BasicConf struct {
 	Password  string `json:"password"`
 	AutoLogin string `json:"auto_login"`
 	AutoExit  string `json:"auto_exit"`
+	AutoHide  string `json:"auto_hide"`
 }
 
 type MonitorConf struct {
