@@ -21,6 +21,9 @@ const handleClick = () => {
 </template>
 
 <style scoped>
+.el-menu--horizontal{
+  --wails-draggable:drag
+}
 .el-menu--horizontal>.el-menu-item:nth-child(1) {
   margin-right: auto;
 }
