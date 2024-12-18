@@ -173,6 +173,7 @@ const updateOption = async () => {
 const handleClick = async () => {
   isLoading.value = true
   await RefreshInfo()
+  isLoading.value = false
 }
 
 const updateInfo = async () => {
