@@ -13,6 +13,7 @@ func InitEnv() error {
 	log.Println("正在加载配置文件：" + envPath)
 	v, err := utils.IsFileExists(envPath)
 	if err != nil {
+		log.Println("加载配置文件失败！" + err.Error())
 		return err
 	}
 
