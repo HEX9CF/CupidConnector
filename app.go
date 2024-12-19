@@ -83,6 +83,7 @@ func (a *App) startup(ctx context.Context) {
 	go a.startMonitor()
 
 	if data.Config.Basic.AutoHide == "TRUE" {
+		log.Println("自动隐藏窗口")
 		runtime.WindowHide(ctx)
 	}
 }

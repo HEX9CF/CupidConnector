@@ -3,7 +3,7 @@ import { SwitchButton, Minus } from "@element-plus/icons-vue";
 import { Exit } from "../../wailsjs/go/main/App";
 import { WindowHide } from "../../wailsjs/runtime/runtime";
 
-const handleClick = () => {
+const handleExit = () => {
   Exit();
 }
 </script>
@@ -17,7 +17,7 @@ const handleClick = () => {
     </div>
     <div class="button-container">
       <el-button class="minus-button" text :icon="Minus" @click="WindowHide"></el-button>
-      <el-button class="exit-button" text :icon="SwitchButton" @click="handleClick"></el-button>
+      <el-button class="exit-button" text :icon="SwitchButton" @click="handleExit"></el-button>
     </div>
   </el-menu>
 </template>

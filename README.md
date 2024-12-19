@@ -55,6 +55,8 @@ STU_PASSWORD=password
 AUTO_LOGIN=TRUE
 # 认证成功后自动退出程序
 AUTO_EXIT=FALSE
+# 启动程序后自动隐藏窗口
+AUTO_HIDE=FALSE
 
 # 自动监控网络流量
 MONITOR_FLUX=TRUE

@@ -25,10 +25,10 @@ func getEnvContent() string {
 		"STU_PASSWORD=" + data.Config.Basic.Password + "\n" +
 		"AUTO_LOGIN=" + data.Config.Basic.AutoLogin + "\n" +
 		"AUTO_EXIT=" + data.Config.Basic.AutoExit + "\n" +
+		"AUTO_HIDE=" + data.Config.Basic.AutoHide + "\n" +
 		"MONITOR_FLUX=" + data.Config.Monitor.Enable + "\n" +
 		"MONITOR_INTERVAL=" + data.Config.Monitor.Interval + "\n" +
 		"MONITOR_ALERT_THRESHOLD=" + data.Config.Monitor.AlertThreshold + "\n" +
-		"MONITOR_LOGOUT_THRESHOLD=" + data.Config.Monitor.LogoutThreshold + "\n" +
-		"AUTO_HIDE=" + data.Config.Basic.AutoHide
+		"MONITOR_LOGOUT_THRESHOLD=" + data.Config.Monitor.LogoutThreshold + "\n"
 	return content
 }
