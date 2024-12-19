@@ -72,6 +72,7 @@ const isNoData = ref<boolean>(true)
 const getInfo = async () => {
   isLoading.value = true
   await GetInfo().then((res) => {
+    console.log(res)
     if (res.code === 1) {
       info.value = res.data
       isNoData.value = false;
@@ -194,12 +195,14 @@ const updateInfo = async () => {
     myChart.value = echarts.init(chartDom.value);
     await updateOption();
   }
+  isLoading.value = false
 }
 
 onMounted(async () => {
   EventsOn("updateInfo", async () => {
     isLoading.value = true
     await updateInfo();
+    isLoading.value = false
   })
 })
 </script>

@@ -4,8 +4,8 @@ import (
 	"context"
 	"cupid-connector/internal/tray"
 	"embed"
-
 	"github.com/wailsapp/wails/v2"
+	"github.com/wailsapp/wails/v2/pkg/logger"
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 )
@@ -27,9 +27,12 @@ func main() {
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
+		LogLevel:         logger.ERROR,
 		BackgroundColour: &options.RGBA{R: 0, G: 0, B: 0, A: 1},
 		OnStartup: func(ctx context.Context) {
 			app.startup(ctx)
+
+			// 启动托盘（必须在最后启动）
 			tray.TrayApp.Startup(ctx)
 		},
 		Bind: []interface{}{
