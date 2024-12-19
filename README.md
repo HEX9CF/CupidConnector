@@ -84,9 +84,9 @@ MONITOR_LOGOUT_THRESHOLD=10
 
 ## 软件界面
 
-![image](https://github.com/user-attachments/assets/36d39e22-4b10-46d2-988b-b5a8ee032547)
+![image](https://github.com/user-attachments/assets/a683aa37-bd7a-4b55-bd03-77dec098376b)
 
-![image](https://github.com/user-attachments/assets/fcb8f4d5-e125-4ac8-82dc-196f0e2daedf)
+![image](https://github.com/user-attachments/assets/3fe5e0cd-be33-412c-9985-b226c0afde1f)
 
 ![image](https://github.com/user-attachments/assets/fb500d22-2a25-48f2-b2de-8d22352b61bc)
 
