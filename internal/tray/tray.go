@@ -53,7 +53,13 @@ func (t *Tray) onReady() {
 }
 
 func (t *Tray) TooltipRefresh() {
-	systray.SetTooltip(fmt.Sprintf("剩余流量：%.3f MB", data.Info.Overall-data.Info.Used))
+	surplus := data.Info.Overall - data.Info.Used
+	systray.SetTooltip(
+		fmt.Sprintf(
+			"剩余流量：%.2f MB (%.2f%%) ",
+			surplus,
+			surplus/data.Info.Overall*100,
+		))
 }
 
 func (t *Tray) onExit() {

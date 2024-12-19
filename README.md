@@ -55,6 +55,8 @@ STU_PASSWORD=password
 AUTO_LOGIN=TRUE
 # 认证成功后自动退出程序
 AUTO_EXIT=FALSE
+# 启动程序后自动隐藏窗口
+AUTO_HIDE=FALSE
 
 # 自动监控网络流量
 MONITOR_FLUX=TRUE
@@ -68,7 +70,9 @@ MONITOR_LOGOUT_THRESHOLD=10
 
 ## 开机自启
 
-用户可以将程序添加到开机启动项，实现开机自动登录校园网。步骤如下：
+用户可以将程序添加到开机启动项，实现开机自动登录校园网。
+
+这里以 Windows 系统为例，具体步骤如下：
 
 1. 将可执行文件移动到一个固定的目录，如 `C:\Program Files\Cupid Connector`。
 2. 右键点击可执行文件 `cupid-connector.exe`，选择“创建快捷方式”。

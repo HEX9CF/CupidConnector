@@ -3,19 +3,21 @@ import { SwitchButton, Minus } from "@element-plus/icons-vue";
 import { Exit } from "../../wailsjs/go/main/App";
 import { WindowHide } from "../../wailsjs/runtime/runtime";
 
-const handleClick = () => {
+const handleExit = () => {
   Exit();
 }
 </script>
 
 <template>
   <el-menu class="el-menu-demo" mode="horizontal" :ellipsis="false" text-color="#fff" active-text-color="#fff">
-    <el-menu-item>
-      <h1>Cupid Connector</h1>
-    </el-menu-item>
+    <div class="logo">
+      <h3>
+        Cupid Connector
+      </h3>
+    </div>
     <div class="button-container">
       <el-button class="minus-button" text :icon="Minus" @click="WindowHide"></el-button>
-      <el-button class="exit-button" text :icon="SwitchButton" @click="handleClick"></el-button>
+      <el-button class="exit-button" text :icon="SwitchButton" @click="handleExit"></el-button>
     </div>
   </el-menu>
 </template>
@@ -26,6 +28,11 @@ const handleClick = () => {
 }
 .el-menu--horizontal>.el-menu-item:nth-child(1) {
   margin-right: auto;
+}
+
+.logo {
+  margin-right: auto;
+  color: #99ccff;
 }
 
 .button-container {

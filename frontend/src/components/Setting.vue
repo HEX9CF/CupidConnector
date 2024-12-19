@@ -1,6 +1,6 @@
 <template>
   <el-button type="primary" @click="handleClick" :icon="Setting" size="small">设置</el-button>
-  <el-dialog v-model="dialogFormVisible" title="设置" width="400">
+  <el-dialog v-model="dialogFormVisible" width="400">
     <el-form :model="conf">
       <el-form-item label="URL" required>
         <el-input v-model="conf.base_url" placeholder="https://a.stu.edu.cn"></el-input>
@@ -11,13 +11,13 @@
       <el-form-item label="密码" required>
         <el-input v-model="conf.password" placeholder="password" type="password"></el-input>
       </el-form-item>
-      <el-form-item label="启动程序自动登录">
+      <el-form-item label="启动程序自动登录" class="form-btn">
         <el-switch v-model="auto_login"></el-switch>
       </el-form-item>
-      <el-form-item label="认证成功自动退出">
+      <el-form-item label="认证成功自动退出" class="form-btn">
         <el-switch v-model="auto_exit"></el-switch>
       </el-form-item>
-      <el-form-item label="自动隐藏窗口">
+      <el-form-item label="自动隐藏程序窗口" class="form-btn">
         <el-switch v-model="auto_hide"></el-switch>
       </el-form-item>
     </el-form>
@@ -73,3 +73,7 @@ const handleConfirm = async () => {
   dialogFormVisible.value = false;
 };
 </script>
+
+<style>
+
+</style>
