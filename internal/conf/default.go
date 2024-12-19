@@ -12,6 +12,7 @@ const (
 	DefaultMonitorInterval = "5"
 	DefaultAlertThreshold  = "30"
 	DefaultLogoutThreshold = "10"
+	DefaultAutoHide        = "FALSE"
 )
 
 func setDefault() {
@@ -20,6 +21,7 @@ func setDefault() {
 	data.Config.Basic.Password = DefaultPassword
 	data.Config.Basic.AutoLogin = DefaultAutoLogin
 	data.Config.Basic.AutoExit = DefaultAutoExit
+	data.Config.Basic.AutoHide = DefaultAutoHide
 	data.Config.Monitor.Enable = DefaultMonitorFlux
 	data.Config.Monitor.Interval = DefaultMonitorInterval
 	data.Config.Monitor.AlertThreshold = DefaultAlertThreshold

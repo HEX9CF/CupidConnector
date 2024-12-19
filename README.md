@@ -1,4 +1,4 @@
-# Cupid Connector
+# 🔗 Cupid Connector
 
 ## 项目简介
 
@@ -77,6 +77,15 @@ MONITOR_LOGOUT_THRESHOLD=10
 5. 将刚才创建的快捷方式移动到这个文件夹中。
 
 如果需要取消开机自启，只需将快捷方式移出启动文件夹即可。
+
+## 软件界面
+
+![image](https://github.com/user-attachments/assets/36d39e22-4b10-46d2-988b-b5a8ee032547)
+
+![image](https://github.com/user-attachments/assets/fcb8f4d5-e125-4ac8-82dc-196f0e2daedf)
+
+![image](https://github.com/user-attachments/assets/fb500d22-2a25-48f2-b2de-8d22352b61bc)
+
 
 ## 趣闻
 
