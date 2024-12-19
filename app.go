@@ -5,6 +5,7 @@ import (
 	"cupid-connector/internal/conf"
 	"cupid-connector/internal/data"
 	"cupid-connector/internal/ticker"
+	"github.com/go-toast/toast"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"log"
 )
@@ -40,6 +41,7 @@ func (a *App) startup(ctx context.Context) {
 	// 初始化定时器
 	err = ticker.Set()
 	if err != nil {
+		log.Println(err)
 		return
 	}
 
@@ -49,6 +51,16 @@ func (a *App) startup(ctx context.Context) {
 	// 自动隐藏窗口
 	if data.Config.Basic.AutoHide == "TRUE" {
 		log.Println("自动隐藏窗口")
+		n := toast.Notification{
+			AppID:   AppID,
+			Title:   "Cupid Connector",
+			Message: "窗口已最小化到托盘",
+		}
+		err = n.Push()
+		if err != nil {
+			log.Println(err)
+			return
+		}
 		runtime.WindowHide(ctx)
 	}
 }
