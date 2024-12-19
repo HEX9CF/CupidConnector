@@ -204,6 +204,9 @@ onMounted(async () => {
     await updateInfo();
     isLoading.value = false
   })
+  setTimeout(async () => {
+    await updateInfo()
+  }, 3000)
 })
 </script>
 
