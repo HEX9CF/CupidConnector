@@ -2,7 +2,7 @@
 
 ## 项目简介
 
-一款用于自动登录汕头大学校园网的轻量级第三方工具，通过发送登录请求并处理响应，实现自动化登录功能，方便汕大师生登录校园网。提供一个流量信息仪表面板，同时支持流量监控、流量告警、自动注销等功能，防止流量超额使用。将程序添加到开机启动项，即可实现开机自动登录校园网。
+一款用于自动登录汕头大学校园网的轻量级第三方工具，通过发送登录请求并处理响应，实现自动化登录功能，方便汕大师生登录校园网。同时提供一个流量信息仪表面板，支持流量监控、流量告警、自动注销等功能，防止流量超额使用。将程序添加到开机启动项，即可实现开机自动登录校园网。
 
 A lightweight third-party tool for automatically logging into the Shantou University campus network. It automates the login process by sending login requests and handling responses, making it convenient for Shantou University students and staff to log into the campus network. It provides a traffic information dashboard and supports traffic monitoring, traffic alerts, and automatic logout to prevent excessive traffic usage. Adding the program to the startup items enables automatic login to the campus network upon startup.
 
