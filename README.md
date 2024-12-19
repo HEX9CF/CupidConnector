@@ -86,10 +86,9 @@ MONITOR_LOGOUT_THRESHOLD=10
 
 ![image](https://github.com/user-attachments/assets/a683aa37-bd7a-4b55-bd03-77dec098376b)
 
-![image](https://github.com/user-attachments/assets/3fe5e0cd-be33-412c-9985-b226c0afde1f)
+![image](https://github.com/user-attachments/assets/2e35cf80-4820-49b6-8907-4070e34263aa)
 
 ![image](https://github.com/user-attachments/assets/fb500d22-2a25-48f2-b2de-8d22352b61bc)
-
 
 ## 趣闻
 
