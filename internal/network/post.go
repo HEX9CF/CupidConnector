@@ -33,7 +33,7 @@ func PostRequest(url string, data string) (string, error) {
 
 	if resp.StatusCode != http.StatusOK {
 		log.Println("请求失败！")
-		return "", errors.New("请求失败，状态码：" + string(rune(resp.StatusCode)))
+		return "", errors.New("请求失败，" + resp.Proto + " " + resp.Status)
 	}
 
 	body, err := io.ReadAll(resp.Body)
