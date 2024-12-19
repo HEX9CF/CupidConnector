@@ -46,8 +46,8 @@
     <div class="flux-chart">
       <div class="statistics-area-chart" ref="chartDom"></div>
     </div>
-    <div class="surplus" v-if="info">
-      剩余流量:{{ parseFloat((info.overall - info?.used).toFixed(3)) }}MB
+    <div class="flux" v-if="info">
+      已用流量: {{ info?.used }} MB / 流量总额: {{ info?.overall }} MB
     </div>
   </div>
 </template>
@@ -113,24 +113,24 @@ const updateOption = async () => {
           splitNumber: 8,
           type: 'gauge',
           itemStyle: {
-            color: '#58D9F9',
+            color: '#aaa',
             shadowColor: 'rgba(0,138,255,0.45)',
             shadowBlur: 10,
             shadowOffsetX: 2,
             shadowOffsetY: 2,
           },
           progress: {
-            show: true,
-            width: 18
+            show: false,
+            width: 18,
           },
           axisLine: {
             lineStyle: {
               width: 18,
               color: [
-                [0.25, '#7CFFB2'],
-                [0.5, '#58D9F9'],
-                [0.75, '#FDDD60'],
-                [1, '#FF6E76']
+                [0.25, '#FF6E76'],
+                [0.5, '#FDDD60'],
+                [0.75, '#58D9F9'],
+                [1, '#7CFFB2']
               ]
             }
           },
@@ -164,13 +164,13 @@ const updateOption = async () => {
             valueAnimation: true,
             fontSize: 20,
             offsetCenter: [0, '85%'],
-            formatter: '{value}' + 'MB',
+            formatter: '{value}' + ' MB',
             color: '#fff'
           },
           data: [
             {
-              value: info.value?.used,
-              name: '已使用',
+              value: parseFloat(((info.value?.overall ?? 0) - (info.value?.used ?? 0)).toFixed(2) ?? 0),
+              name: '剩余流量',
             }
           ]
         }
@@ -206,8 +206,8 @@ onMounted(async () => {
 
 <style scoped>
 .statistics-area-chart {
-  width: 240px;
-  height: 240px;
+  width: 220px;
+  height: 210px;
   text-align: center;
 }
 
@@ -215,5 +215,10 @@ onMounted(async () => {
   display: flex;
   justify-content: center;
   text-align: center;
+}
+
+.flux {
+  font-size: 12px;
+  color: #aaa;
 }
 </style>
