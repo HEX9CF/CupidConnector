@@ -93,11 +93,17 @@ MONITOR_LOGOUT_THRESHOLD=10
 
 ## 软件界面
 
+### 主界面
 ![image](https://github.com/user-attachments/assets/a683aa37-bd7a-4b55-bd03-77dec098376b)
 
+### 基本设置
 ![image](https://github.com/user-attachments/assets/2e35cf80-4820-49b6-8907-4070e34263aa)
 
+### 流量监控
 ![image](https://github.com/user-attachments/assets/fb500d22-2a25-48f2-b2de-8d22352b61bc)
+
+### 流量告警通知框
+![image](https://github.com/user-attachments/assets/f58eb0f7-9f70-4af4-a05a-6a6ea4726a67)
 
 ## 趣闻
 
