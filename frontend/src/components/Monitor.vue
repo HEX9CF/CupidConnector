@@ -5,7 +5,7 @@
             <el-form-item label="流量监控">
               <el-switch v-model="enable"></el-switch>
             </el-form-item>
-            <el-form-item label="自动重连">
+            <el-form-item label="断线重连">
               <el-switch v-model="auto_reconnect"></el-switch>
             </el-form-item>
             <el-form-item label="监控间隔">
@@ -39,7 +39,7 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import { model } from '../../wailsjs/go/models'
-import { ElButton, ElDialog, ElForm, ElInput, ElSwitch } from "element-plus"
+import { ElButton, ElDialog, ElForm, ElSwitch } from "element-plus"
 import { GetMonitorConf, UpdateMonitorConf } from '../../wailsjs/go/application/App'
 import {Aim} from "@element-plus/icons-vue";
 
