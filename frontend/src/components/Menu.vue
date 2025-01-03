@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { SwitchButton, Minus } from "@element-plus/icons-vue";
-import { Exit } from "../../wailsjs/go/main/App";
+import { Exit } from "../../wailsjs/go/application/App";
 import { WindowHide } from "../../wailsjs/runtime/runtime";
 
 const handleExit = () => {

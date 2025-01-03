@@ -55,7 +55,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { ElCol, ElRow } from 'element-plus'
-import { GetInfo, RefreshInfo } from '../../wailsjs/go/main/App'
+import { GetInfo, RefreshInfo } from '../../wailsjs/go/application/App'
 import { model } from '../../wailsjs/go/models'
 import * as echarts from 'echarts/core';
 import { GaugeChart, GaugeSeriesOption } from 'echarts/charts';

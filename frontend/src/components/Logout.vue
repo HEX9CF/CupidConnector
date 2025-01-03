@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ElButton} from "element-plus";
 import { CircleClose } from "@element-plus/icons-vue";
-import {Logout} from "../../wailsjs/go/main/App";
+import {Logout} from "../../wailsjs/go/application/App";
 import {ref} from "vue";
 
 const isLoading = ref(false);

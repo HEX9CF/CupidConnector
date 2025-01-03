@@ -1,9 +1,12 @@
 <template>
       <el-button type="success" @click="handleClick" :icon="Aim" size="small">监控</el-button>
       <el-dialog v-model="dialogFormVisible" width="400">
-          <el-form :model="conf">
+          <el-form :model="conf" :size="'small'">
             <el-form-item label="流量监控">
               <el-switch v-model="enable"></el-switch>
+            </el-form-item>
+            <el-form-item label="自动重连">
+              <el-switch v-model="auto_reconnect"></el-switch>
             </el-form-item>
             <el-form-item label="监控间隔">
               <el-slider v-model="interval" show-input size="small" max="360" :disabled="!enable" />
@@ -37,18 +40,20 @@
 import { ref } from "vue"
 import { model } from '../../wailsjs/go/models'
 import { ElButton, ElDialog, ElForm, ElInput, ElSwitch } from "element-plus"
-import { GetMonitorConf, UpdateMonitorConf } from '../../wailsjs/go/main/App'
+import { GetMonitorConf, UpdateMonitorConf } from '../../wailsjs/go/application/App'
 import {Aim} from "@element-plus/icons-vue";
 
 const isLoading = ref(false);
 const dialogFormVisible = ref(false)
 const enable = ref<boolean>(false)
+const auto_reconnect = ref<boolean>(false)
 const interval = ref<number>(0)
 const alert_threshold = ref<number>(0)
 const logout_threshold = ref<number>(0)
 
 const conf = ref<model.MonitorConf>({
   enable: "FALSE",
+  auto_reconnect: "FALSE",
   interval: "0",
   alert_threshold: "0",
   logout_threshold: "0",
@@ -68,6 +73,7 @@ const handleClick = () => {
 const handleConfirm = async () => {
   isLoading.value = true;
   conf.value.enable = enable.value ? "TRUE" : "FALSE";
+  conf.value.auto_reconnect = auto_reconnect.value ? "TRUE" : "FALSE";
   conf.value.interval = interval.value.toString();
   conf.value.alert_threshold = alert_threshold.value.toString();
   conf.value.logout_threshold = logout_threshold.value.toString();

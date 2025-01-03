@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ElButton} from "element-plus";
 import { RefreshRight } from "@element-plus/icons-vue";
-import {Login} from "../../wailsjs/go/main/App";
+import {Login} from "../../wailsjs/go/application/App";
 import {ref} from "vue";
 
 const isLoading = ref(false);

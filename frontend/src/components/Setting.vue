@@ -1,7 +1,7 @@
 <template>
   <el-button type="primary" @click="handleClick" :icon="Setting" size="small">设置</el-button>
   <el-dialog v-model="dialogFormVisible" width="400">
-    <el-form :model="conf">
+    <el-form :model="conf" :size="'small'">
       <el-form-item label="URL" required>
         <el-input v-model="conf.base_url" placeholder="https://a.stu.edu.cn"></el-input>
       </el-form-item>
@@ -34,7 +34,7 @@
 import { ref } from "vue"
 import { model } from '../../wailsjs/go/models'
 import { ElButton, ElDialog, ElForm, ElInput, ElSwitch } from "element-plus"
-import { GetBasicConf, UpdateBasicConf } from '../../wailsjs/go/main/App'
+import { GetBasicConf, UpdateBasicConf } from '../../wailsjs/go/application/App'
 import { Setting } from "@element-plus/icons-vue";
 
 const isLoading = ref(false);

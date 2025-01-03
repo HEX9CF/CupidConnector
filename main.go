@@ -2,7 +2,8 @@ package main
 
 import (
 	"context"
-	"cupid-connector/internal/tray"
+	"cupid-connector/backend/application"
+	"cupid-connector/backend/tray"
 	"embed"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/logger"
@@ -16,7 +17,7 @@ var assets embed.FS
 func main() {
 
 	// Create an instance of the app structure
-	app := NewApp()
+	app := application.NewApp()
 	tray.TrayApp = tray.NewTray()
 
 	// Create application with options
@@ -30,7 +31,7 @@ func main() {
 		LogLevel:         logger.ERROR,
 		BackgroundColour: &options.RGBA{R: 0, G: 0, B: 0, A: 1},
 		OnStartup: func(ctx context.Context) {
-			app.startup(ctx)
+			app.Startup(ctx)
 
 			// 启动托盘（必须在最后启动）
 			tray.TrayApp.Startup(ctx)
