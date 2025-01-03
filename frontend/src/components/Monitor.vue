@@ -48,7 +48,6 @@ import { model } from '../../wailsjs/go/models'
 import { ElButton, ElDialog, ElForm, ElSwitch } from "element-plus"
 import { GetMonitorConf, UpdateMonitorConf } from '../../wailsjs/go/application/App'
 import {Aim} from "@element-plus/icons-vue";
-import {log} from "echarts/types/src/util/log";
 
 const isLoading = ref(false);
 const dialogFormVisible = ref(false)
