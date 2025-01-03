@@ -4,9 +4,9 @@
           <el-form :model="conf" :size="'small'">
             <el-form-item label="流量监控">
               <el-switch v-model="enable"></el-switch>
-            </el-form-item>
-            <el-form-item label="断线重连">
-              <el-switch v-model="auto_reconnect"></el-switch>
+              <span style="font-size: 12px">
+                &nbsp;&nbsp;&nbsp;&nbsp;以下功能仅在启用流量监控时生效
+              </span>
             </el-form-item>
             <el-form-item label="监控间隔">
               <el-slider v-model="interval" show-input size="small" max="360" :disabled="!enable" />
@@ -26,6 +26,12 @@
               剩余流量百分比，若为0则关闭自动注销
               </span>
             </el-form-item>
+            <el-form-item label="断线重连">
+              <el-switch v-model="auto_reconnect" :disabled="!enable || logout_threshold != 0"></el-switch>
+              <span style="font-size: 12px">
+                &nbsp;&nbsp;&nbsp;&nbsp;关闭自动注销才能启用断线重连
+              </span>
+            </el-form-item>
           </el-form>
           <template #footer>
               <div class="dialog-footer">
@@ -42,6 +48,7 @@ import { model } from '../../wailsjs/go/models'
 import { ElButton, ElDialog, ElForm, ElSwitch } from "element-plus"
 import { GetMonitorConf, UpdateMonitorConf } from '../../wailsjs/go/application/App'
 import {Aim} from "@element-plus/icons-vue";
+import {log} from "echarts/types/src/util/log";
 
 const isLoading = ref(false);
 const dialogFormVisible = ref(false)
@@ -66,6 +73,7 @@ const handleClick = () => {
         interval.value = parseInt(res.data.interval);
         alert_threshold.value = parseInt(res.data.alert_threshold);
         logout_threshold.value = parseInt(res.data.logout_threshold);
+        auto_reconnect.value = res.data.auto_reconnect === "TRUE";
     })
     dialogFormVisible.value = true;
 };
@@ -73,7 +81,7 @@ const handleClick = () => {
 const handleConfirm = async () => {
   isLoading.value = true;
   conf.value.enable = enable.value ? "TRUE" : "FALSE";
-  conf.value.auto_reconnect = auto_reconnect.value ? "TRUE" : "FALSE";
+  conf.value.auto_reconnect = (auto_reconnect.value && logout_threshold.value == 0) ? "TRUE" : "FALSE";
   conf.value.interval = interval.value.toString();
   conf.value.alert_threshold = alert_threshold.value.toString();
   conf.value.logout_threshold = logout_threshold.value.toString();

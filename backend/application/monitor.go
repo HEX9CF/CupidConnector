@@ -45,7 +45,7 @@ func refreshInfo(a *App) {
 
 // 自动重连
 func autoReconnect(a *App) {
-	if data.Config.Monitor.AutoReconnect == "TRUE" {
+	if data.Config.Monitor.AutoReconnect == "TRUE" && data.Config.Monitor.LogoutThreshold == "0" {
 		log.Println("自动重连检测中...")
 		if data.Info.Username == "" {
 			a.Login()
