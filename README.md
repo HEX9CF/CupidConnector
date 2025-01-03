@@ -2,7 +2,7 @@
 
 ## 项目简介
 
-用于汕头大学校园网自动登录与流量监控的第三方轻量级工具，通过发送登录请求并处理响应，实现自动化登录功能，方便汕大师生登录校园网。同时提供一个流量信息仪表面板，支持流量监控、流量告警、自动注销等功能，防止流量超额使用。将程序添加到开机启动项，即可实现开机自动登录校园网。
+汕头大学校园网自动登录与流量监控第三方轻量级工具，通过发送登录请求并处理响应，实现自动化登录功能，方便汕大师生登录校园网。同时提供一个流量信息仪表面板，支持流量监控、流量告警、自动注销等功能，防止流量超额使用。将程序添加到开机启动项，即可实现开机自动登录校园网。
 
 A lightweight third-party tool for automatically logging into the Shantou University campus network. It automates the login process by sending login requests and handling responses, making it convenient for Shantou University students and staff to log into the campus network. It provides a traffic information dashboard and supports traffic monitoring, traffic alerts, and automatic logout to prevent excessive traffic usage. Adding the program to the startup items enables automatic login to the campus network upon startup.
 
@@ -27,11 +27,11 @@ A lightweight third-party tool for automatically logging into the Shantou Univer
 - **注销账号**：用户可以注销当前登录的账号，退出校园网。
 - **自动退出**：用户可以设置登录成功后自动退出程序。
 - **自动隐藏**：用户可以设置启动程序后自动最小化窗口到系统托盘。
-- **仪表面板**：提供一个流量信息仪表面板，显示当前账号信息和网络流量使用情况。
+- **仪表面板**：提供一个流量信息仪表面板，显示当前账号信息和网络流量使用情况。如果没有打开流量监控，需要手动刷新流量信息。
 - **流量监控**：用户可以开启流量监控功能，设置监控间隔时间，监控网络流量使用情况。
-- **断线重连**: 当流量监控检测到校园网连接断开时，自动尝试重新登录校园网。
-- **流量告警**：用户可以设置流量告警阈值，当网络流量超过阈值时，会弹出告警提示，提醒用户注意流量使用。
-- **自动注销**：用户可以设置自动注销阈值，当网络流量超过阈值时，自动注销账号，防止超额使用流量。
+- **断线重连**: 当流量监控检测到校园网连接断开时，自动尝试重新登录校园网，保证你的文件上传下载和远程桌面连接持续在线。需要打开流量监控才能生效。
+- **流量告警**：用户可以设置流量告警阈值，当网络流量超过阈值时，会弹出告警提示，提醒用户注意流量使用。需要打开流量监控才能生效。
+- **自动注销**：用户可以设置自动注销阈值，当网络流量超过阈值时，自动注销账号，防止超额使用流量。需要打开流量监控才能生效。
 
 ## 使用方法
 
