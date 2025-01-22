@@ -9,7 +9,7 @@ require (
 	github.com/go-toast/toast v0.0.0-20190211030409-01e6764cf0a4
 	github.com/joho/godotenv v1.5.1
 	github.com/wailsapp/wails/v2 v2.9.2
-	golang.org/x/net v0.25.0
+	golang.org/x/net v0.33.0
 )
 
 require (
