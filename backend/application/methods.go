@@ -58,6 +58,11 @@ func (a *App) GenerateInfo(model.Info) model.Resp {
 	return model.Resp{Code: model.ResponseCodeError, Msg: "not implemented"}
 }
 
+// 占位逼迫models生成InternetSpeed类的，本身没用
+func (a *App) GenerateInternetSpeed(speed model.InternetSpeed) model.Resp {
+	return model.Resp{Code: model.ResponseCodeError, Msg: "not implemented"}
+}
+
 // 登录
 func (a *App) Login() {
 	err := login.Login()
