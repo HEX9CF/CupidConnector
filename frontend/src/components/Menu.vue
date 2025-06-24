@@ -11,9 +11,19 @@ const handleExit = () => {
 <template>
   <el-menu class="el-menu-demo" mode="horizontal" :ellipsis="false" text-color="#fff" active-text-color="#fff">
     <div class="logo">
-      <h3>
-        Cupid Connector
-      </h3>
+      <el-tooltip
+          class="box-item"
+          effect="dark"
+          placement="bottom"
+      >
+        <template #content>
+          本项目采用 GPL-3.0 license 进行许可<br/>
+          https://github.com/HEX9CF/CupidConnector
+        </template>
+        <h3>
+          Cupid Connector
+        </h3>
+      </el-tooltip>
     </div>
     <div class="button-container">
       <el-button class="minus-button" text :icon="Minus" @click="WindowHide"></el-button>
