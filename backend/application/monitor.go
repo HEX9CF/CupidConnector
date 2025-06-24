@@ -3,15 +3,20 @@ package application
 import (
 	"cupid-connector/backend/data"
 	"cupid-connector/backend/ticker"
-	"github.com/go-toast/toast"
 	"log"
 	"strconv"
+	"time"
+
+	"github.com/go-toast/toast"
+	"github.com/shirou/gopsutil/v3/net"
 )
 
 var remainFlux float64
 
 // 启动监控
 func startMonitor(a *App) {
+	// 启动流量监控
+	go monitorNetworkSpeed()
 	for {
 		if ticker.Ticker != nil {
 			select {
@@ -81,6 +86,43 @@ func alert() {
 			}
 		}
 		log.Println("流量告警检测完成")
+	}
+}
+
+// 监控网速
+func monitorNetworkSpeed() {
+	bytesSentPrevCount := 0
+	bytesRecvPrevCount := 0
+	counters, err := net.IOCounters(true)
+	if err != nil {
+		log.Printf("获取网络计数器失败: %v", err)
+		return
+	}
+	for _, counter := range counters {
+		bytesSentPrevCount += int(counter.BytesSent)
+		bytesRecvPrevCount += int(counter.BytesRecv)
+	}
+	trafficTicker := time.NewTicker(1 * time.Second)
+	for range trafficTicker.C {
+		if data.Config.Monitor.Enable == "TRUE" {
+			counters, err := net.IOCounters(true)
+			if err != nil {
+				log.Printf("获取网络计数器失败: %v", err)
+				continue
+			}
+			bytesSentCount := 0
+			bytesRecvCount := 0
+			for _, counter := range counters {
+				bytesSentCount += int(counter.BytesSent)
+				bytesRecvCount += int(counter.BytesRecv)
+			}
+			bytesSent := bytesSentCount - bytesSentPrevCount
+			bytesRecv := bytesRecvCount - bytesRecvPrevCount
+			bytesSentPrevCount = bytesSentCount
+			bytesRecvPrevCount = bytesRecvCount
+
+			log.Printf("发送: %d KB/s, 接收: %d KB/s", bytesSent/1024, bytesRecv/1024)
+		}
 	}
 }
 
