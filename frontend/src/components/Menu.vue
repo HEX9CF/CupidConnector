@@ -11,9 +11,9 @@ const handleExit = () => {
 <template>
   <el-menu class="el-menu-demo" mode="horizontal" :ellipsis="false" text-color="#fff" active-text-color="#fff">
     <div class="logo">
-      <h3>
+      <h4>
         Cupid Connector
-      </h3>
+      </h4>
     </div>
     <div class="button-container">
       <el-button class="minus-button" text :icon="Minus" @click="WindowHide"></el-button>
