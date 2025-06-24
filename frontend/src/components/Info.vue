@@ -1,5 +1,5 @@
 <template>
-  <el-empty v-if="isNoData" style="max-height: 250px">
+  <el-empty v-if="isNoData" style="max-height: 450px">
     <ElButton @click="handleClick" style="margin-top: 10px;" :icon="Refresh" :loading="isLoading">刷新</ElButton>
   </el-empty>
   <div v-if="!isNoData">

@@ -1,4 +1,10 @@
 <template>
+  <br/>
+  <div class="speed">
+    上传速度: {{ speed?.uploadSpeed.toFixed(2) }} KB/s
+    |
+    下载速度: {{ speed?.downloadSpeed.toFixed(2) }} KB/s
+  </div>
   <div class="traffic-container">
     <div class="traffic-chart" ref="chartDom"></div>
   </div>
@@ -12,6 +18,7 @@ import { TooltipComponent, GridComponent, TitleComponent, LegendComponent, Toolb
 import { CanvasRenderer } from 'echarts/renderers';
 import { EventsOn, EventsOff } from "../../wailsjs/runtime";
 import { GetInternetSpeed } from "../../wailsjs/go/application/App";
+import {model} from "../../wailsjs/go/models";
 
 // 注册必须的组件
 echarts.use([
@@ -26,6 +33,7 @@ echarts.use([
 
 type EChartsOption = echarts.ComposeOption<LineSeriesOption>;
 
+const speed = ref<model.InternetSpeed>();
 const uploadSpeeds = ref<number[]>([]);
 const downloadSpeeds = ref<number[]>([]);
 const timePoints = ref<string[]>([]);
@@ -50,6 +58,8 @@ const getInternetSpeed = async () => {
       downloadSpeeds.value.push(res.data.downloadSpeed);
       if (downloadSpeeds.value.length > size) downloadSpeeds.value.shift();
 
+      speed.value = res.data;
+
       timePoints.value.push(timeStr);
       if (timePoints.value.length > size) timePoints.value.shift();
     }
@@ -72,6 +82,10 @@ const handleResize = () => {
 const updateOption = () => {
   if (myChart.value) {
     option = {
+      tooltip: {
+        show: true,
+        trigger: 'axis'
+      },
       legend: {
         data: ['上传速度', '下载速度'],
         top: 30
@@ -180,13 +194,16 @@ onUnmounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
 }
 
 .traffic-chart {
   width: 100%;
   height: 100%;
-  min-height: 300px;
+  min-height: 250px;
+}
+
+.speed {
+  font-size: 12px;
+  color: #aaa;
 }
 </style>
