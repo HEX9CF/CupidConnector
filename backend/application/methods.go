@@ -55,7 +55,7 @@ func (a *App) RefreshInternetSpeed() {
 
 // 占位逼迫models生成Info类的，本身没用
 func (a *App) GenerateInfo(model.Info) model.Resp {
-	return model.Resp{Code: model.ResponseCodeOk, Msg: "not implemented"}
+	return model.Resp{Code: model.ResponseCodeError, Msg: "not implemented"}
 }
 
 // 登录
