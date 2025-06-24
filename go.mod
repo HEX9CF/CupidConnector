@@ -1,8 +1,6 @@
 module cupid-connector
 
-go 1.23.0
-
-toolchain go1.24.4
+go 1.24.4
 
 require (
 	github.com/getlantern/systray v1.2.2
