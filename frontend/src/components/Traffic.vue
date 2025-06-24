@@ -1,27 +1,17 @@
 <template>
-      <el-button type="info" @click="handleClick" :icon="Odometer" size="small">流量</el-button>
-      <el-dialog v-model="dialogFormVisible" width="500">
-          <div class="traffic-container">
-            <div class="traffic-chart" ref="chartDom"></div>
-          </div>
-          <template #footer>
-              <div class="dialog-footer">
-                  <el-button @click="dialogFormVisible = false">返回</el-button>
-              </div>
-          </template>
-      </el-dialog>
+  <div class="traffic-container">
+    <div class="traffic-chart" ref="chartDom"></div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import {onMounted, ref} from "vue"
-import { ElButton, ElDialog } from "element-plus"
-import { Odometer } from "@element-plus/icons-vue";
+import { onMounted, ref, onUnmounted } from "vue"
 import * as echarts from "echarts/core";
 import { LineChart, LineSeriesOption } from 'echarts/charts';
 import { TooltipComponent, GridComponent, TitleComponent, LegendComponent, ToolboxComponent } from 'echarts/components';
 import { CanvasRenderer } from 'echarts/renderers';
-import {EventsOn} from "../../wailsjs/runtime";
-import {GetInternetSpeed} from "../../wailsjs/go/application/App";
+import { EventsOn, EventsOff } from "../../wailsjs/runtime";
+import { GetInternetSpeed } from "../../wailsjs/go/application/App";
 
 // 注册必须的组件
 echarts.use([
@@ -36,7 +26,6 @@ echarts.use([
 
 type EChartsOption = echarts.ComposeOption<LineSeriesOption>;
 
-const dialogFormVisible = ref(false)
 const uploadSpeeds = ref<number[]>([]);
 const downloadSpeeds = ref<number[]>([]);
 const timePoints = ref<string[]>([]);
@@ -45,16 +34,6 @@ const size = 60;
 const chartDom = ref<HTMLElement | null>(null);
 const myChart = ref<echarts.ECharts | null>(null);
 let option: EChartsOption;
-
-const handleClick = () => {
-    dialogFormVisible.value = true;
-    setTimeout(() => {
-      if (chartDom.value && !myChart.value) {
-        initChart();
-      }
-      updateOption();
-    }, 100);
-};
 
 const getInternetSpeed = async () => {
   await GetInternetSpeed().then((res) => {
@@ -78,28 +57,21 @@ const getInternetSpeed = async () => {
 }
 
 const initChart = () => {
-  if (chartDom.value) {
+  if (chartDom.value && !myChart.value) {
     myChart.value = echarts.init(chartDom.value);
+    window.addEventListener('resize', handleResize);
+  }
+}
+
+const handleResize = () => {
+  if (myChart.value) {
+    myChart.value.resize();
   }
 }
 
 const updateOption = () => {
   if (myChart.value) {
     option = {
-      title: {
-        text: '实时网络流量',
-        left: 'center'
-      },
-      tooltip: {
-        trigger: 'axis',
-        formatter: function (params: any) {
-          let result = params[0].name + '<br/>';
-          params.forEach((param: any) => {
-            result += param.seriesName + ': ' + param.value + ' KB/s<br/>';
-          });
-          return result;
-        }
-      },
       legend: {
         data: ['上传速度', '下载速度'],
         top: 30
@@ -109,11 +81,6 @@ const updateOption = () => {
         right: '4%',
         bottom: '3%',
         containLabel: true
-      },
-      toolbox: {
-        feature: {
-          saveAsImage: {}
-        }
       },
       xAxis: {
         type: 'category',
@@ -163,15 +130,16 @@ const updateOption = () => {
       ]
     };
 
-    myChart.value.setOption(option);
+    option && myChart.value.setOption(option);
+    setTimeout(() => {
+      myChart.value?.resize();  // 强制重新计算大小
+    }, 0);
   }
 }
 
 const updateInternetSpeed = async () => {
   await getInternetSpeed();
-  if (dialogFormVisible.value && myChart.value) {
-    updateOption();
-  }
+  updateOption();
 }
 
 onMounted(async () => {
@@ -184,13 +152,26 @@ onMounted(async () => {
     timePoints.value.push(`${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`);
   }
 
-  EventsOn("updateInternetSpeed", async () => {
-    await updateInternetSpeed();
-  });
+  // 初始化图表
+  initChart();
+  updateOption();
 
+  // 监听事件
+  EventsOn("updateInternetSpeed", updateInternetSpeed);
+
+  // 初次获取数据
   setTimeout(async () => {
     await updateInternetSpeed();
   }, 1000);
+})
+
+onUnmounted(() => {
+  // 清理事件监听和图表实例
+  EventsOff("updateInternetSpeed");
+  window.removeEventListener('resize', handleResize);
+  if (myChart.value) {
+    myChart.value.dispose();
+  }
 })
 </script>
 
@@ -199,15 +180,13 @@ onMounted(async () => {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 .traffic-chart {
-  width: 450px;
-  height: 300px;
-}
-
-.dialog-footer {
-  text-align: right;
-  margin-top: 10px;
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
 }
 </style>

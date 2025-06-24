@@ -1,8 +1,4 @@
 <template>
-  <el-empty v-if="isNoData" style="max-height: 320px">
-    <ElButton @click="handleClick" style="margin-top: 10px;" :icon="Refresh" :loading="isLoading">刷新</ElButton>
-  </el-empty>
-  <div v-if="!isNoData">
     <el-row>
       <el-col :span="8">
         <el-statistic :value="info?.expiration_time">
@@ -43,13 +39,25 @@
         </el-statistic>
       </el-col>
     </el-row>
-    <div class="flux-chart">
-      <div class="statistics-area-chart" ref="chartDom"></div>
+    <el-empty v-if="isNoData" style="max-height: 250px">
+<!--<ElButton @click="handleClick" style="margin-top: 10px;" :icon="Refresh" :loading="isLoading">刷新</ElButton>-->
+    </el-empty>
+    <div v-if="!isNoData">
+      <el-row>
+        <el-col :span="8">
+          <div class="flux-chart">
+            <div class="statistics-area-chart" ref="chartDom"></div>
+          </div>
+          <div class="flux" v-if="info">
+            已用流量: {{ info?.used }} MB
+            <br/> 流量总额: {{ info?.overall }} MB
+          </div>
+        </el-col>
+        <el-col :span="16">
+          <Traffic/>
+        </el-col>
+      </el-row>
     </div>
-    <div class="flux" v-if="info">
-      已用流量: {{ info?.used }} MB / 流量总额: {{ info?.overall }} MB
-    </div>
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -62,6 +70,7 @@ import { GaugeChart, GaugeSeriesOption } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
 import { Refresh, Calendar, User, CircleCheck } from "@element-plus/icons-vue";
 import { EventsOn } from "../../wailsjs/runtime";
+import Traffic from "./Traffic.vue";
 echarts.use([GaugeChart, CanvasRenderer]);
 type EChartsOption = echarts.ComposeOption<GaugeSeriesOption>;
 
@@ -213,7 +222,7 @@ onMounted(async () => {
 <style scoped>
 .statistics-area-chart {
   width: 220px;
-  height: 210px;
+  height: 200px;
   text-align: center;
 }
 

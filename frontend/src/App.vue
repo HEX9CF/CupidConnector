@@ -14,9 +14,6 @@
               <Monitor />
             </el-col>
             <el-col :span="4">
-              <traffic />
-            </el-col>
-            <el-col :span="4">
               <Login />
             </el-col>
             <el-col :span="4">
