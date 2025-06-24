@@ -8,9 +8,10 @@ import (
 	"cupid-connector/backend/service/logout"
 	"cupid-connector/backend/service/setting"
 	"cupid-connector/backend/tray"
+	"log"
+
 	"github.com/go-toast/toast"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
-	"log"
 )
 
 // 获取基础配置
@@ -42,6 +43,14 @@ func (a *App) RefreshInfo() {
 		tray.TrayApp.TooltipRefresh()
 	}
 	runtime.EventsEmit(a.ctx, "updateInfo")
+}
+
+func (a *App) GetInternetSpeed() model.Resp {
+	return model.Resp{Code: model.ResponseCodeOk, Msg: "success", Data: data.InternetSpeed}
+}
+
+func (a *App) RefreshInternetSpeed() {
+	runtime.EventsEmit(a.ctx, "updateInternetSpeed")
 }
 
 // 占位逼迫models生成Info类的，本身没用

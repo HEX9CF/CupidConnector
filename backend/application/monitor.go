@@ -16,7 +16,7 @@ var remainFlux float64
 // 启动监控
 func startMonitor(a *App) {
 	// 启动流量监控
-	go monitorNetworkSpeed()
+	go monitorNetworkSpeed(a)
 	for {
 		if ticker.Ticker != nil {
 			select {
@@ -90,7 +90,7 @@ func alert() {
 }
 
 // 监控网速
-func monitorNetworkSpeed() {
+func monitorNetworkSpeed(a *App) {
 	bytesSentPrevCount := 0
 	bytesRecvPrevCount := 0
 	counters, err := net.IOCounters(true)
@@ -121,7 +121,11 @@ func monitorNetworkSpeed() {
 			bytesSentPrevCount = bytesSentCount
 			bytesRecvPrevCount = bytesRecvCount
 
-			log.Printf("发送: %d KB/s, 接收: %d KB/s", bytesSent/1024, bytesRecv/1024)
+			// log.Printf("发送: %d KB/s, 接收: %d KB/s", bytesSent/1024, bytesRecv/1024)
+			data.InternetSpeed.UploadSpeed = float64(bytesSent) / 1024.0
+			data.InternetSpeed.DownloadSpeed = float64(bytesRecv) / 1024.0
+
+			a.RefreshInternetSpeed()
 		}
 	}
 }
