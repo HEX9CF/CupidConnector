@@ -75,7 +75,6 @@ const info = ref<model.Info>(
       account_status: "未知",
     }
 )
-const isNoData = ref<boolean>(true)
 
 const getInfo = async () => {
   isLoading.value = true
@@ -83,18 +82,8 @@ const getInfo = async () => {
     console.log(res)
     if (res.code === 1) {
       info.value = res.data
-      isNoData.value = false;
-    } else {
-      info.value = {
-        user_name: "未知用户",
-        overall: 0,
-        used: 0,
-        expiration_time: "未知",
-        account_status: "未知",
-      };
-      isNoData.value = true;
     }
-    if (info.value == null || info.value?.user_name == "") {
+    if (res.code !== 1 || info.value == null || info.value?.user_name == "") {
       info.value = {
         user_name: "未知用户",
         overall: 0,
@@ -102,7 +91,6 @@ const getInfo = async () => {
         expiration_time: "未知",
         account_status: "未知",
       };
-      isNoData.value = true;
     }
     isLoading.value = false
   })
