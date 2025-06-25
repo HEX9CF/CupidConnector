@@ -58,10 +58,6 @@ const updateOption = async () => {
             shadowOffsetX: 2,
             shadowOffsetY: 2,
           },
-          progress: {
-            show: false,
-            width: 18,
-          },
           axisLine: {
             lineStyle: {
               width: 18,
@@ -74,7 +70,7 @@ const updateOption = async () => {
             }
           },
           axisTick: {
-            show: false
+            show: true
           },
           splitLine: {
             length: 10,
@@ -84,9 +80,9 @@ const updateOption = async () => {
             }
           },
           axisLabel: {
-            distance: 25,
+            distance: 20,
             color: '#fff',
-            fontSize: 10
+            fontSize: 5
           },
           anchor: {
             show: true,
@@ -101,7 +97,7 @@ const updateOption = async () => {
           },
           detail: {
             valueAnimation: true,
-            fontSize: 20,
+            fontSize: 16,
             offsetCenter: [0, '85%'],
             formatter: '{value}' + ' MB',
             color: '#fff'
@@ -161,15 +157,15 @@ onUnmounted(() => {
     <div class="statistics-area-chart" ref="chartDom"></div>
   </div>
   <div class="flux" v-if="info">
-    已用流量: {{ info?.used }} MB
-    <br/> 流量总额: {{ info?.overall }} MB
+    已用流量: {{ info?.used.toFixed(2) }} MB
+    <br/> 流量总额: {{ info?.overall.toFixed(2) }} MB
   </div>
 </template>
 
 <style scoped>
 .statistics-area-chart {
   margin-top: 50px;
-  width: 220px;
+  width: 200px;
   height: 200px;
   text-align: center;
 }

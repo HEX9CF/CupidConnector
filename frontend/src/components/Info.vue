@@ -1,8 +1,9 @@
 <template>
+<!--
   <el-empty v-if="isNoData" style="max-height: 450px">
     <ElButton @click="handleClick" style="margin-top: 10px;" :icon="Refresh" :loading="isLoading">刷新</ElButton>
   </el-empty>
-  <div v-if="!isNoData">
+-->
     <el-row>
       <el-col :span="8">
         <el-statistic :value="info?.expiration_time">
@@ -27,7 +28,8 @@
             </div>
           </template>
         </el-statistic>
-        <ElButton @click="handleClick" style="margin-top: 10px;" :icon="Refresh" :loading="isLoading" size="small">刷新
+        <ElButton @click="handleClick" style="margin-top: 10px;" :icon="Refresh" :loading="isLoading" size="small">
+          刷新
         </ElButton>
       </el-col>
       <el-col :span="8">
@@ -51,7 +53,6 @@
           <Traffic/>
         </el-col>
       </el-row>
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -65,8 +66,15 @@ import Traffic from "./Traffic.vue";
 import Flux from "./Flux.vue";
 
 const isLoading = ref(false)
-const info = ref<model.Info>()
-const isNoData = ref<boolean>(true)
+const info = ref<model.Info>(
+    {
+      user_name: "未知用户",
+      overall: 0,
+      used: 0,
+      expiration_time: "未知",
+      account_status: "未知",
+    }
+)
 
 const getInfo = async () => {
   isLoading.value = true
@@ -74,18 +82,8 @@ const getInfo = async () => {
     console.log(res)
     if (res.code === 1) {
       info.value = res.data
-      isNoData.value = false;
-    } else {
-      info.value = {
-        user_name: "未知用户",
-        overall: 0,
-        used: 0,
-        expiration_time: "未知",
-        account_status: "未知",
-      };
-      isNoData.value = true;
     }
-    if (info.value == null || info.value?.user_name == "") {
+    if (res.code !== 1 || info.value == null || info.value?.user_name == "") {
       info.value = {
         user_name: "未知用户",
         overall: 0,
@@ -93,7 +91,6 @@ const getInfo = async () => {
         expiration_time: "未知",
         account_status: "未知",
       };
-      isNoData.value = true;
     }
     isLoading.value = false
   })

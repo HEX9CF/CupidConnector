@@ -88,7 +88,10 @@ const updateOption = () => {
       },
       legend: {
         data: ['上传速度', '下载速度'],
-        top: 30
+        top: 30,
+        textStyle: {
+          color: '#99ccff'
+        }
       },
       grid: {
         left: '3%',
@@ -199,11 +202,12 @@ onUnmounted(() => {
 .traffic-chart {
   width: 100%;
   height: 100%;
-  min-height: 250px;
+  min-height: 280px;
 }
 
 .speed {
   font-size: 12px;
   color: #aaa;
+  margin-bottom: -20px;
 }
 </style>
